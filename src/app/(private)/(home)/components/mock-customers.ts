@@ -11,7 +11,7 @@ export const mockCustomers: Customer[] = [
     id: uuidv4(),
   },
   {
-    name: 'Alison48@hotmail.com',
+    name: 'Gabriel Vieira',
     email: 'alison48@hotmail.com',
     phone: '489-742-5107',
     birthdate: '20/06/2000',
@@ -19,7 +19,7 @@ export const mockCustomers: Customer[] = [
     id: uuidv4(),
   },
   {
-    name: 'Alison48@hotmail.com',
+    name: 'Vitor Ribeiro',
     email: 'alison48@hotmail.com',
     phone: '489-742-5107',
     birthdate: '20/06/2000',
@@ -27,7 +27,7 @@ export const mockCustomers: Customer[] = [
     id: uuidv4(),
   },
   {
-    name: 'Alison48@hotmail.com',
+    name: 'Marcos Santos',
     email: 'alison48@hotmail.com',
     phone: '489-742-5107',
     birthdate: '20/06/2000',
@@ -35,7 +35,7 @@ export const mockCustomers: Customer[] = [
     id: uuidv4(),
   },
   {
-    name: 'Alison48@hotmail.com',
+    name: 'Neymar Junior',
     email: 'alison48@hotmail.com',
     phone: '489-742-5107',
     birthdate: '20/06/2000',
@@ -43,7 +43,7 @@ export const mockCustomers: Customer[] = [
     id: uuidv4(),
   },
   {
-    name: 'Alison48@hotmail.com',
+    name: 'Latoya Bartoletti',
     email: 'alison48@hotmail.com',
     phone: '489-742-5107',
     birthdate: '20/06/2000',
@@ -51,7 +51,7 @@ export const mockCustomers: Customer[] = [
     id: uuidv4(),
   },
   {
-    name: 'Alison48@hotmail.com',
+    name: 'Latoya Bartoletti',
     email: 'alison48@hotmail.com',
     phone: '489-742-5107',
     birthdate: '20/06/2000',

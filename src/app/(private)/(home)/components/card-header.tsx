@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { CardHeader } from '@/components/ui/card'
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogHeader,
   DialogTitle,
@@ -11,12 +12,16 @@ import {
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
+import { useCustomersCtx } from '@/contexts/customers-context'
 import { useMediaQuery } from '@/hooks/use-media-query'
 import { formatMediaQueryIntoPX } from '@/utills/format-media-query-into-px'
 import { LucideChevronLeft, LucideSearch, LucideTrash2 } from 'lucide-react'
 
 export const CardHeaderComponent = () => {
+  const { checkedItems: customers } = useCustomersCtx()
   const isMobile = useMediaQuery(formatMediaQueryIntoPX(1024))
+
+  const customersNames = customers.map((customer) => customer.name).join(', ')
 
   return (
     <CardHeader className='mb-6 pb-0 lg:mb-0 lg:pb-0'>
@@ -70,7 +75,7 @@ export const CardHeaderComponent = () => {
             <p className='text-sm'>
               Tem certeza de que deseja excluir permanentemente o(a) cliente(s){' '}
               <span className='font-semibold text-destructive'>
-                Claudia Sampaio da Silva
+                {customersNames}
               </span>
               ? Esta ação não pode ser desfeita e todos os dados relacionados ao
               cliente, incluindo histórico de empréstimos e faturas, serão
@@ -80,13 +85,15 @@ export const CardHeaderComponent = () => {
             <Separator />
 
             <div className='flex items-center justify-end gap-2'>
-              <Button
-                variant='gray'
-                className='flex w-fit items-center gap-1.5 px-2.5 text-sm font-semibold'
-              >
-                <LucideChevronLeft className='size-5 text-white' />
-                Cancelar
-              </Button>
+              <DialogClose asChild>
+                <Button
+                  variant='gray'
+                  className='flex w-fit items-center gap-1.5 px-2.5 text-sm font-semibold'
+                >
+                  <LucideChevronLeft className='size-5 text-white' />
+                  Cancelar
+                </Button>
+              </DialogClose>
 
               <Button
                 variant='destructive'

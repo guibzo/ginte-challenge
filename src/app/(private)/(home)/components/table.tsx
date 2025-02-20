@@ -11,9 +11,13 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import { useCustomersCtx } from '@/contexts/customers-context'
 import { LucidePencil } from 'lucide-react'
+import { mockCustomers } from './mock-customers'
 
 export const TableComponent = () => {
+  const { checkedItems, toggleItem } = useCustomersCtx()
+
   return (
     <CardContent className='hidden lg:block'>
       <div className='rounded-md border border-border'>
@@ -31,19 +35,22 @@ export const TableComponent = () => {
           </TableHeader>
 
           <TableBody>
-            {Array.from({ length: 6 }).map((_, i) => {
+            {mockCustomers.map((customer) => {
               return (
-                <TableRow key={i}>
+                <TableRow key={customer.id}>
                   <TableCell>
                     <div className='flex items-center'>
-                      <Checkbox />
+                      <Checkbox
+                        checked={checkedItems.some((c) => c.id === customer.id)}
+                        onCheckedChange={() => toggleItem(customer)}
+                      />
                     </div>
                   </TableCell>
-                  <TableCell>Latoya Bartoletti</TableCell>
-                  <TableCell>Alison48@hotmail.com</TableCell>
-                  <TableCell>489-742-5107</TableCell>
-                  <TableCell>20/06/2000</TableCell>
-                  <TableCell>Rua XYZ</TableCell>
+                  <TableCell>{customer.name}</TableCell>
+                  <TableCell>{customer.email}</TableCell>
+                  <TableCell>{customer.phone}</TableCell>
+                  <TableCell>{customer.birthdate}</TableCell>
+                  <TableCell>{customer.address}</TableCell>
                   <TableCell>
                     <div className='flex justify-end'>
                       <Button

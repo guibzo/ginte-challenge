@@ -33,7 +33,7 @@ const DialogOverlay = React.forwardRef<
 DialogOverlay.displayName = DialogPrimitive.Overlay.displayName
 
 const dialogVariants = cva(
-  'fixed z-50 grid w-full  gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 sm:rounded-lg',
+  'fixed z-50 grid w-full gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 lg:rounded-lg',
   {
     variants: {
       position: {
@@ -49,21 +49,21 @@ const dialogVariants = cva(
         'top-right':
           'left-auto right-4 top-4 translate-x-0 translate-y-0 data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right',
         'bottom-left':
-          'bottom-4 left-4 translate-x-0 translate-y-0 data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left',
+          'bottom-0 left-4 translate-x-0 translate-y-0 data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left',
         'bottom-center':
-          'bottom-4 left-[50%] translate-x-[-50%] translate-y-0 data-[state=closed]:slide-out-to-bottom-[50%] data-[state=closed]:slide-out-to-left-1/2 data-[state=open]:slide-in-from-bottom-[50%] data-[state=open]:slide-in-from-left-1/2',
+          'bottom-0 left-[50%] translate-x-[-50%] translate-y-0 data-[state=closed]:slide-out-to-bottom-[50%] data-[state=closed]:slide-out-to-left-1/2 data-[state=open]:slide-in-from-bottom-[50%] data-[state=open]:slide-in-from-left-1/2',
         'bottom-right':
-          'bottom-4 left-auto right-4 translate-x-0 translate-y-0 data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right',
+          'bottom-0 left-auto right-4 translate-x-0 translate-y-0 data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right',
       },
       size: {
-        default: 'w-full md:max-w-lg',
-        small: 'w-full md:max-w-xl',
-        medium: 'w-full md:max-w-2xl',
-        large: 'w-full md:max-w-3xl',
-        'extra-large': 'w-full md:max-w-5xl',
+        default: 'w-full lg:max-w-lg',
+        small: 'w-full lg:max-w-xl',
+        medium: 'w-full lg:max-w-2xl',
+        large: 'w-full lg:max-w-3xl',
+        'extra-large': 'w-full lg:max-w-5xl',
         'super-large': 'w-full xl:max-w-6xl',
         'ultra-large': 'w-full xl:max-w-7xl',
-        full: 'max-w-[calc(100%-15px)] md:max-w-[calc(100%-24px)] md:max-w-[calc(100%-80px)]',
+        full: 'max-w-[calc(100%-15px)] lg:max-w-[calc(100%-24px)] lg:max-w-[calc(100%-80px)]',
       },
     },
     defaultVariants: {

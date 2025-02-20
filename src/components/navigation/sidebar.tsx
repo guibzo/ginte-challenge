@@ -9,10 +9,9 @@ import { MenuLink } from './menu-link'
 
 export const Sidebar = () => {
   const pathname = usePathname()
-  console.log(pathname)
 
   return (
-    <div className='hidden w-full max-w-[260px] flex-1 flex-col border-r border-r-zinc-300/60 p-6 lg:flex'>
+    <div className='hidden w-[260px] flex-col border-r border-r-zinc-300/60 p-6 lg:flex'>
       <div className='mx-auto'>
         <Logo />
       </div>

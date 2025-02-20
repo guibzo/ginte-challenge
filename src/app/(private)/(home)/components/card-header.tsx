@@ -1,4 +1,5 @@
 'use client'
+
 import { Button } from '@/components/ui/button'
 import { CardHeader } from '@/components/ui/card'
 import {
@@ -10,11 +11,15 @@ import {
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
+import { useMediaQuery } from '@/hooks/use-media-query'
+import { formatMediaQueryIntoPX } from '@/utills/format-media-query-into-px'
 import { LucideChevronLeft, LucideSearch, LucideTrash2 } from 'lucide-react'
 
 export const CardHeaderComponent = () => {
+  const isMobile = useMediaQuery(formatMediaQueryIntoPX(1024))
+
   return (
-    <CardHeader className='mb-6 pb-0 sm:pb-0 lg:mb-0'>
+    <CardHeader className='mb-6 pb-0 lg:mb-0 lg:pb-0'>
       <div className='flex flex-col justify-between space-y-2.5 lg:flex-row lg:items-center'>
         <>
           <Input
@@ -42,7 +47,10 @@ export const CardHeaderComponent = () => {
             </Button>
           </DialogTrigger>
 
-          <DialogContent size='small'>
+          <DialogContent
+            size='small'
+            position={isMobile ? 'bottom-center' : 'center'}
+          >
             <DialogHeader>
               <DialogTitle asChild>
                 <div className='inline-flex gap-1 text-base'>

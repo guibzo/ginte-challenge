@@ -10,7 +10,7 @@ export const ContentContainer = ({
   return (
     <main
       className={cn(
-        'mx-auto flex min-h-screen w-full flex-col p-4 lg:p-6',
+        'mx-auto flex min-h-screen flex-1 flex-col p-4 lg:p-6',
         className,
       )}
     >

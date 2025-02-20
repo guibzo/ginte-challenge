@@ -1,4 +1,5 @@
 import { segoe_ui } from '@/../public/fonts/fonts'
+import { Providers } from '@/components/providers'
 import { cn } from '@/lib/cn'
 import '@/styles/global.css'
 import type { Metadata } from 'next'
@@ -17,8 +18,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='pt' className={cn(segoe_ui.className)}>
-      <body className='antialiased'>
-        <div className='flex h-screen w-full flex-col'>{children}</div>
+      <body className='flex h-screen w-full flex-col antialiased'>
+        <Providers>{children}</Providers>
       </body>
     </html>
   )

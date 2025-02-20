@@ -1,17 +1,20 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer'
+import {
+  Drawer,
+  DrawerContent,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@/components/ui/drawer'
 import { navigationItems } from '@/constants/navigation-items'
 import { LucideLogOut, LucideMenu } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { Title } from '../title'
-import { DialogTitle } from '../ui/dialog'
 import { MenuLink } from './menu-link'
 
 export const BottomMenu = () => {
   const pathname = usePathname()
-  console.log(pathname)
 
   return (
     <div className='fixed bottom-0 flex h-12 w-full items-center bg-zinc-700 lg:hidden'>
@@ -23,11 +26,9 @@ export const BottomMenu = () => {
         </DrawerTrigger>
 
         <DrawerContent className='p-2.5'>
-          <DialogTitle asChild>
-            <div className='my-4'>
-              <Title>Menu</Title>
-            </div>
-          </DialogTitle>
+          <DrawerTitle className='sr-only'>Menu</DrawerTitle>
+
+          <Title className='my-4'>Menu</Title>
 
           <ul className='flex flex-col gap-2.5'>
             {navigationItems.map((item) => {

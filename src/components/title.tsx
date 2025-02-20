@@ -1,3 +1,5 @@
+import { cn } from '@/lib/cn'
+
 export const Title = ({
   children,
   className,
@@ -6,7 +8,12 @@ export const Title = ({
   className?: string
 }) => {
   return (
-    <h1 className='text-2xl font-semibold leading-tight lg:text-[32px]'>
+    <h1
+      className={cn(
+        'text-2xl font-semibold leading-tight lg:text-[32px]',
+        className,
+      )}
+    >
       {children}
     </h1>
   )

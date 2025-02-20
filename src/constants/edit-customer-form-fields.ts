@@ -1,5 +1,4 @@
 import {
-  LucideCalendarDays,
   LucideMail,
   LucideMapPin,
   LucidePhone,
@@ -13,6 +12,7 @@ export type EditCustomerFormField = {
   placeholder: string
   colSpan?: number
   fieldName: string
+  mask?: string
 }
 
 export const editCustomerFormFields: EditCustomerFormField[] = [
@@ -30,16 +30,17 @@ export const editCustomerFormFields: EditCustomerFormField[] = [
   },
   {
     fieldName: 'phone',
-    label: 'Telefone com DDD',
-    placeholder: 'Telefone do cliente',
+    label: 'Celular com DDD',
+    mask: '(99) 99999-9999',
+    placeholder: 'Celular do cliente',
     icon: LucidePhone,
   },
-  {
-    fieldName: 'birthdate',
-    label: 'Data de nascimento',
-    placeholder: 'Data de nascimento do cliente',
-    icon: LucideCalendarDays,
-  },
+  // {
+  //   fieldName: 'birthdate',
+  //   label: 'Data de nascimento',
+  //   placeholder: 'Data de nascimento do cliente',
+  //   icon: LucideCalendarDays,
+  // },
   {
     fieldName: 'address',
     label: 'Endereço',

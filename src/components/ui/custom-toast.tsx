@@ -17,7 +17,7 @@ export const CustomToast = ({
     <>
       {type === 'success' && (
         <div className='flex items-center gap-2'>
-          <LucideCheckCircle2 className='size-6 items-center stroke-emerald-500' />
+          <LucideCheckCircle2 className='size-6 items-center stroke-emerald-600' />
 
           <div>
             <h2 className='font-bold'>
@@ -25,7 +25,7 @@ export const CustomToast = ({
             </h2>
 
             <p className='text-xs text-muted-foreground'>
-              {description
+              {typeof description === 'string'
                 ? description
                 : 'Seus dados foram modificados com sucesso'}
             </p>
@@ -35,15 +35,17 @@ export const CustomToast = ({
 
       {type === 'error' && (
         <div className='flex items-center gap-2'>
-          <LucideAlertCircle className='size-6 items-center stroke-red-500' />
+          <LucideAlertCircle className='size-6 items-center stroke-destructive' />
 
           <div>
             <h2 className='font-bold'>
-              {title ?? 'Ocorreu um erro ao tentar realizar essa ação.'}
+              {title ? title : 'Ocorreu um erro ao tentar realizar essa ação.'}
             </h2>
 
             <p className='text-xs text-muted-foreground'>
-              {error?.message ?? error ?? 'Tente novamente mais tarde'}
+              {error.message.length > 0
+                ? error.message
+                : 'Tente novamente mais tarde'}
             </p>
           </div>
         </div>

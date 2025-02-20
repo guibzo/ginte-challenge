@@ -5,6 +5,7 @@ import { FormError } from '@/components/form-error'
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
 import { Card, CardContent } from '@/components/ui/card'
+import { CustomToast } from '@/components/ui/custom-toast'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import {
@@ -25,6 +26,7 @@ import {
 } from 'lucide-react'
 import Link from 'next/link'
 import { Controller, useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import { useHookFormMask } from 'use-mask-input'
 import { editCustomerSchema, type EditCustomerSchema } from './schemas'
 
@@ -42,6 +44,7 @@ export const EditCustomerForm = (editingCustomer: Customer) => {
 
   const onSubmit = (data: EditCustomerSchema) => {
     console.log(data)
+    toast(<CustomToast title='Cliente editado com sucesso!' description='' />)
   }
 
   const formattedBirthdate = editingCustomer.birthdate

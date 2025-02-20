@@ -35,7 +35,7 @@ const Input = React.forwardRef<
         <input
           type={inputType}
           className={cn(
-            'placeholder:text-app-content-placeholder peer flex h-10 w-full rounded-md border border-input bg-background px-2.5 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
+            'placeholder:text-app-content-placeholder peer flex h-10 w-full rounded-md border border-zinc-700 bg-zinc-950 px-2.5 py-2 text-base ring-offset-zinc-300 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
             startIcon && 'ps-9',
             (endIcon || revealer) && 'pe-9',
             className,

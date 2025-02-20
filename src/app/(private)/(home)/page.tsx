@@ -1,8 +1,9 @@
 import { Title } from '@/components/title'
-import { Card, CardContent } from '@/components/ui/card'
+import { Card } from '@/components/ui/card'
 import type { Metadata } from 'next'
 import { CardFooterComponent } from './components/card-footer'
 import { CardHeaderComponent } from './components/card-header'
+import { ResponsiveTableCard } from './components/responsive-table-card'
 import { TableComponent } from './components/table'
 
 export const metadata: Metadata = {
@@ -17,9 +18,9 @@ export default function Page() {
       <Card className='mt-8'>
         <CardHeaderComponent />
 
-        <CardContent>
-          <TableComponent />
-        </CardContent>
+        <TableComponent />
+
+        <ResponsiveTableCard />
 
         <CardFooterComponent />
       </Card>

@@ -14,12 +14,12 @@ import { LucideChevronLeft, LucideSearch, LucideTrash2 } from 'lucide-react'
 
 export const CardHeaderComponent = () => {
   return (
-    <CardHeader className='pb-0 sm:pb-0'>
-      <div className='flex items-center justify-between'>
+    <CardHeader className='mb-6 pb-0 sm:pb-0 lg:mb-0'>
+      <div className='flex flex-col justify-between space-y-2.5 lg:flex-row lg:items-center'>
         <>
           <Input
             aria-describedby='search-email-or-name'
-            className='w-[360px]'
+            className='w-full lg:w-[360px]'
             placeholder='Pesquise por nome ou e-mail'
             autoComplete='off'
             endIcon={<LucideSearch className='size-5 text-muted-foreground' />}
@@ -35,7 +35,7 @@ export const CardHeaderComponent = () => {
             <Button
               size='sm'
               variant='destructive'
-              className='flex items-center gap-2 font-semibold'
+              className='flex items-center justify-between gap-2 font-semibold lg:justify-center'
             >
               Excluir selecionados
               <LucideTrash2 className='size-5' />

@@ -1,5 +1,6 @@
 import { ContentContainer } from '@/components/content-container'
-import { Sidebar } from '@/components/sidebar'
+import { BottomMenu } from '@/components/navigation/bottom-menu'
+import { Sidebar } from '@/components/navigation/sidebar'
 import '@/styles/global.css'
 
 export default function Layout({
@@ -8,8 +9,9 @@ export default function Layout({
   children: React.ReactNode
 }>) {
   return (
-    <div className='flex flex-1'>
+    <div className='flex flex-1 pb-12 lg:pb-0'>
       <Sidebar />
+      <BottomMenu />
 
       <ContentContainer>{children}</ContentContainer>
     </div>

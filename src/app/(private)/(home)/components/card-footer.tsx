@@ -6,8 +6,8 @@ import { LucideChevronLeft, LucideChevronRight } from 'lucide-react'
 
 export const CardFooterComponent = () => {
   return (
-    <CardFooter className='w-full pt-0 sm:pt-0'>
-      <div className='flex w-full items-center justify-between'>
+    <CardFooter className='mt-6 w-full pt-4 sm:pt-0 lg:mt-0'>
+      <div className='flex w-full flex-col justify-between space-y-2.5 lg:flex-row lg:items-center'>
         <span className='text-sm font-semibold text-muted-foreground'>
           1 de 6 linhas selecionadas
         </span>
@@ -16,7 +16,7 @@ export const CardFooterComponent = () => {
           <Button
             variant='black'
             size='sm'
-            className='flex items-center gap-2 text-sm font-semibold'
+            className='flex flex-1 items-center gap-2 text-sm font-semibold lg:flex-grow-0'
           >
             <LucideChevronLeft className='size-4 text-white' />
             Anterior
@@ -25,7 +25,7 @@ export const CardFooterComponent = () => {
           <Button
             variant='gray'
             size='sm'
-            className='flex items-center gap-2 text-sm font-semibold'
+            className='flex flex-1 items-center gap-2 text-sm font-semibold lg:flex-grow-0'
           >
             <LucideChevronRight className='size-4 text-white' />
             Próxima

@@ -90,7 +90,7 @@ export const CardHeaderComponent = () => {
                   variant='gray'
                   className='flex w-fit items-center gap-1.5 px-2.5 text-sm font-semibold'
                 >
-                  <LucideChevronLeft className='size-5 text-white' />
+                  <LucideChevronLeft className='size-4 text-white' />
                   Cancelar
                 </Button>
               </DialogClose>
@@ -99,7 +99,7 @@ export const CardHeaderComponent = () => {
                 variant='destructive'
                 className='flex w-fit items-center gap-1.5 px-2.5 text-sm font-semibold'
               >
-                <LucideTrash2 className='size-5 text-white' />
+                <LucideTrash2 className='size-4 text-white' />
                 Excluir
               </Button>
             </div>

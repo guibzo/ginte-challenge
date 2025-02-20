@@ -6,10 +6,11 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { Separator } from '@/components/ui/separator'
 import { useCustomersCtx } from '@/contexts/customers-context'
 import { LucidePencil } from 'lucide-react'
+import Link from 'next/link'
 import { Fragment } from 'react'
 import { mockCustomers } from './mock-customers'
 
-export const ResponsiveTableCard = () => {
+export const ResponsiveCustomersTableCard = () => {
   const { checkedItems, toggleItem } = useCustomersCtx()
 
   return (
@@ -36,13 +37,15 @@ export const ResponsiveTableCard = () => {
                   </div>
                 </div>
 
-                <Button
-                  variant='outline'
-                  size='icon'
-                  className='flex items-center justify-center border-amber-500 bg-amber-500'
-                >
-                  <LucidePencil className='size-5 text-white' />
-                </Button>
+                <Link href={`/edit-customer/${customer.id}`}>
+                  <Button
+                    variant='outline'
+                    size='icon'
+                    className='flex items-center justify-center border-amber-500 bg-amber-500'
+                  >
+                    <LucidePencil className='size-5 text-white' />
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
 

@@ -28,7 +28,6 @@ export const CardFooterComponent = () => {
           <Button
             onClick={() => handleChangePage('previous')}
             variant='black'
-            size='sm'
             className='flex flex-1 items-center gap-2 text-sm font-semibold lg:flex-grow-0'
           >
             <LucideChevronLeft className='size-4 text-white' />
@@ -38,7 +37,6 @@ export const CardFooterComponent = () => {
           <Button
             onClick={() => handleChangePage('next')}
             variant='gray'
-            size='sm'
             className='flex flex-1 items-center gap-2 text-sm font-semibold lg:flex-grow-0'
           >
             <LucideChevronRight className='size-4 text-white' />

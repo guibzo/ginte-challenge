@@ -13,9 +13,10 @@ import {
 } from '@/components/ui/table'
 import { useCustomersCtx } from '@/contexts/customers-context'
 import { LucidePencil } from 'lucide-react'
+import Link from 'next/link'
 import { mockCustomers } from './mock-customers'
 
-export const TableComponent = () => {
+export const CustomersTable = () => {
   const { checkedItems, toggleItem } = useCustomersCtx()
 
   return (
@@ -53,13 +54,15 @@ export const TableComponent = () => {
                   <TableCell>{customer.address}</TableCell>
                   <TableCell>
                     <div className='flex justify-end'>
-                      <Button
-                        variant='outline'
-                        size='icon'
-                        className='flex items-center justify-center border-amber-500 bg-amber-500'
-                      >
-                        <LucidePencil className='size-5 text-white' />
-                      </Button>
+                      <Link href={`/edit-customer/${customer.id}`}>
+                        <Button
+                          variant='outline'
+                          size='icon'
+                          className='flex items-center justify-center border-amber-500 bg-amber-500'
+                        >
+                          <LucidePencil className='size-5 text-white' />
+                        </Button>
+                      </Link>
                     </div>
                   </TableCell>
                 </TableRow>

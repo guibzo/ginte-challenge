@@ -12,7 +12,7 @@ export const navigationItems: NavigationItem[] = [
   { name: 'Clientes', href: '/', id: uuidv4(), icon: LucideUsers2 },
   {
     name: 'Cadastrar Cliente',
-    href: '/register-client',
+    href: '/register-customer',
     id: uuidv4(),
     icon: LucidePlus,
   },

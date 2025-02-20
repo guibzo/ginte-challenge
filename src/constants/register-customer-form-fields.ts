@@ -6,7 +6,7 @@ import {
   type LucideIcon,
 } from 'lucide-react'
 
-export type EditCustomerFormField = {
+export type RegisterCustomerFormField = {
   icon: LucideIcon
   label: string
   placeholder: string
@@ -15,7 +15,7 @@ export type EditCustomerFormField = {
   mask?: string
 }
 
-export const editCustomerFormFields: EditCustomerFormField[] = [
+export const registerCustomerFormFields: RegisterCustomerFormField[] = [
   {
     fieldName: 'name',
     label: 'Nome',

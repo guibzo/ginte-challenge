@@ -1,6 +1,5 @@
 'use client'
 
-import type { Customer } from '@/app/@types/customer'
 import { FormError } from '@/components/form-error'
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
@@ -12,23 +11,19 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
-import { editCustomerFormFields } from '@/constants/edit-customer-form-fields'
+import { registerCustomerFormFields } from '@/constants/register-customer-form-fields'
 import { cn } from '@/lib/cn'
 import { hasFieldError } from '@/utills/has-field-error'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { format, parse } from 'date-fns'
+import { format } from 'date-fns'
 import { pt } from 'date-fns/locale/pt'
-import {
-  LucideCalendarDays,
-  LucideChevronLeft,
-  LucidePencil,
-} from 'lucide-react'
+import { LucideCalendarDays, LucideChevronLeft, LucidePlus } from 'lucide-react'
 import Link from 'next/link'
 import { Controller, useForm } from 'react-hook-form'
 import { useHookFormMask } from 'use-mask-input'
 import { editCustomerSchema, type EditCustomerSchema } from './schemas'
 
-export const EditCustomerForm = (editingCustomer: Customer) => {
+export const RegisterCustomerForm = () => {
   const {
     register,
     handleSubmit,
@@ -44,16 +39,12 @@ export const EditCustomerForm = (editingCustomer: Customer) => {
     console.log(data)
   }
 
-  const formattedBirthdate = editingCustomer.birthdate
-    ? parse(editingCustomer.birthdate, 'dd/MM/yyyy', new Date())
-    : undefined
-
   return (
     <Card className='mt-8'>
       <CardContent>
         <form className='space-y-8' onSubmit={handleSubmit(onSubmit)}>
           <div className='grid w-full grid-cols-1 gap-4 sm:grid-cols-2'>
-            {editCustomerFormFields.map(
+            {registerCustomerFormFields.map(
               ({ fieldName, label, placeholder, icon, colSpan, mask }) => {
                 const Icon = icon
                 const hasError = hasFieldError(
@@ -85,9 +76,6 @@ export const EditCustomerForm = (editingCustomer: Customer) => {
                       id={fieldName}
                       placeholder={placeholder}
                       endIcon={<Icon className='size-5 text-white' />}
-                      defaultValue={
-                        editingCustomer[fieldName as keyof Customer]
-                      }
                       className={cn(hasError && 'border-destructive')}
                     />
                     {hasError && <FormError>{fieldError}</FormError>}
@@ -102,10 +90,7 @@ export const EditCustomerForm = (editingCustomer: Customer) => {
               <Controller
                 control={control}
                 name='birthdate'
-                defaultValue={formattedBirthdate}
                 render={({ field }) => {
-                  console.log(field.value)
-
                   return (
                     <Popover {...register('birthdate')}>
                       <PopoverTrigger asChild>
@@ -118,7 +103,7 @@ export const EditCustomerForm = (editingCustomer: Customer) => {
                           {field.value ? (
                             format(field.value, 'PPP', { locale: pt })
                           ) : (
-                            <span className='text-gray-400'>
+                            <span className='text-muted-foreground/80'>
                               1 de janeiro de 2024
                             </span>
                           )}
@@ -166,8 +151,8 @@ export const EditCustomerForm = (editingCustomer: Customer) => {
               variant='green'
               className='flex flex-1 items-center gap-2 text-sm font-semibold sm:flex-grow-0'
             >
-              <LucidePencil className='size-4 text-white' />
-              Editar
+              <LucidePlus className='size-4 text-white' />
+              Cadastrar
             </Button>
           </div>
         </form>

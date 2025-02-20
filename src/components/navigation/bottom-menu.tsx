@@ -3,6 +3,7 @@
 import { Button } from '@/components/ui/button'
 import {
   Drawer,
+  DrawerClose,
   DrawerContent,
   DrawerTitle,
   DrawerTrigger,
@@ -32,7 +33,11 @@ export const BottomMenu = () => {
 
           <ul className='flex flex-col gap-2.5'>
             {navigationItems.map((item) => {
-              return <MenuLink key={item.id} {...item} />
+              return (
+                <DrawerClose key={item.id}>
+                  <MenuLink {...item} />
+                </DrawerClose>
+              )
             })}
           </ul>
 

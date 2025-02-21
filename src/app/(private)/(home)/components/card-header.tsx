@@ -21,6 +21,7 @@ export const CardHeaderComponent = () => {
   const { checkedItems: customers } = useCustomersCtx()
   const isMobile = useMediaQuery(formatMediaQueryIntoPX(1024))
 
+  const hasCheckedItems = Boolean(customers.length > 0)
   const customersNames = customers.map((customer) => customer.name).join(', ')
 
   return (
@@ -45,6 +46,7 @@ export const CardHeaderComponent = () => {
             <Button
               size='sm'
               variant='destructive'
+              disabled={!hasCheckedItems}
               className='flex items-center justify-between gap-2 font-semibold lg:justify-center'
             >
               Excluir selecionados

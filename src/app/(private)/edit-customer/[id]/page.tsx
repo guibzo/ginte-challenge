@@ -1,10 +1,11 @@
 'use client'
 
+import { Title } from '@/components/title'
 import { useCustomersCtx } from '@/contexts/customers-context'
+import { LucideCircleChevronLeft } from 'lucide-react'
 import { useParams, useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import { EditCustomerForm } from './(components)/form'
-import { EditCustomerTitle } from './(components)/title'
 
 export default function Page() {
   const { findCustomerById } = useCustomersCtx()
@@ -25,7 +26,11 @@ export default function Page() {
     <>
       <title>Editar Cliente</title>
 
-      <EditCustomerTitle {...customer} />
+      <div className='flex items-center gap-4'>
+        <LucideCircleChevronLeft className='-mb-1.5 size-8 text-app-green-200' />
+        <Title>Editando: {customer.name}</Title>
+      </div>
+
       <EditCustomerForm {...customer} />
     </>
   )

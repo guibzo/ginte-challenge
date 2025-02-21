@@ -41,34 +41,11 @@ export const RegisterCustomerForm = () => {
     formState: { errors },
   } = useForm<RegisterCustomerSchema>({
     resolver: zodResolver(registerCustomerSchema),
-    defaultValues: {
-      birthdate: String(new Date()),
-      address: '123123',
-      phone: '12981004104',
-      email: 'teste@teste.com',
-      name: 'teste',
-    },
   })
 
   const registerWithMask = useHookFormMask(register)
 
   const formRef = useRef<HTMLFormElement>(null)
-
-  useEffect(() => {
-    if (!state.code) return
-
-    setTimeout(() => {
-      const toastProps = {
-        title: state.message,
-        ...(state.code !== 201 && {
-          type: 'error' as const,
-          error: 'Verifique os campos e tente novamente.',
-        }),
-      }
-
-      toast(<CustomToast {...toastProps} />)
-    }, 0)
-  }, [state])
 
   const onFormSubmit = () => {
     startTransition(() => {
@@ -81,12 +58,26 @@ export const RegisterCustomerForm = () => {
     })
   }
 
+  useEffect(() => {
+    if (!state.code) return
+
+    setTimeout(() => {
+      const toastProps = {
+        title: state.message,
+        type: state.code === 201 ? 'success' : ('error' as any),
+        error: state.message,
+      }
+
+      toast(<CustomToast {...toastProps} />)
+    }, 0)
+  }, [state])
+
   return (
     <Card className='mt-8'>
       <CardContent>
         <form
-          ref={formRef}
           className='space-y-8'
+          ref={formRef}
           onSubmit={handleSubmit(onFormSubmit)}
         >
           <div className='grid w-full grid-cols-1 gap-4 sm:grid-cols-2'>
@@ -155,7 +146,9 @@ export const RegisterCustomerForm = () => {
                           )}
                         >
                           {field.value ? (
-                            format(field.value, 'PPP', { locale: pt })
+                            format(field.value, 'PPP', {
+                              locale: pt,
+                            })
                           ) : (
                             <span className='text-muted-foreground/80'>
                               1 de janeiro de 2024

@@ -16,8 +16,9 @@ import {
 import { editCustomerFormFields } from '@/constants/edit-customer-form-fields'
 import { cn } from '@/lib/cn'
 import { hasFieldError } from '@/utills/has-field-error'
+import { parseDDMMYYYYToDate } from '@/utills/parse-dd-mm-yyyy-to-date'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { format, parse } from 'date-fns'
+import { format } from 'date-fns'
 import { pt } from 'date-fns/locale/pt'
 import {
   LucideCalendarDays,
@@ -25,16 +26,24 @@ import {
   LucidePencil,
 } from 'lucide-react'
 import Link from 'next/link'
+import { startTransition, useActionState, useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { useHookFormMask } from 'use-mask-input'
+import { doEditCustomer } from './actions'
 import { editCustomerSchema, type EditCustomerSchema } from './schemas'
 
 export const EditCustomerForm = (editingCustomer: Customer) => {
+  const [state, formAction, isSubmitting] = useActionState(doEditCustomer, {
+    message: '',
+    code: 0,
+  })
+
   const {
     register,
     handleSubmit,
     control,
+    getValues,
     formState: { errors },
   } = useForm<EditCustomerSchema>({
     resolver: zodResolver(editCustomerSchema),
@@ -42,18 +51,46 @@ export const EditCustomerForm = (editingCustomer: Customer) => {
 
   const registerWithMask = useHookFormMask(register)
 
-  const onSubmit = (data: EditCustomerSchema) => {
-    toast(<CustomToast title='Cliente editado com sucesso!' description='' />)
+  const formRef = useRef<HTMLFormElement>(null)
+
+  const onFormSubmit = () => {
+    startTransition(() => {
+      const formData = new FormData(formRef.current!)
+      const birthdateValue = getValues('birthdate')
+
+      formData.append('birthdate', birthdateValue)
+      formData.append('id', editingCustomer.id)
+
+      formAction(formData)
+    })
   }
 
-  const formattedBirthdate = editingCustomer.birthdate
-    ? parse(editingCustomer.birthdate, 'dd/MM/yyyy', new Date())
-    : undefined
+  const formattedBirthdate = String(
+    parseDDMMYYYYToDate(editingCustomer.birthdate),
+  )
+
+  useEffect(() => {
+    if (!state.code) return
+
+    setTimeout(() => {
+      const toastProps = {
+        title: state.message,
+        type: state.code === 204 ? 'success' : ('error' as any),
+        error: state.message,
+      }
+
+      toast(<CustomToast {...toastProps} />)
+    }, 0)
+  }, [state])
 
   return (
     <Card className='mt-8'>
       <CardContent>
-        <form className='space-y-8' onSubmit={handleSubmit(onSubmit)}>
+        <form
+          className='space-y-8'
+          ref={formRef}
+          onSubmit={handleSubmit(onFormSubmit)}
+        >
           <div className='grid w-full grid-cols-1 gap-4 sm:grid-cols-2'>
             {editCustomerFormFields.map(
               ({ fieldName, label, placeholder, icon, colSpan, mask }) => {
@@ -85,6 +122,7 @@ export const EditCustomerForm = (editingCustomer: Customer) => {
                           )
                         : register(fieldName as keyof EditCustomerSchema))}
                       id={fieldName}
+                      disabled={isSubmitting}
                       placeholder={placeholder}
                       endIcon={<Icon className='size-5 text-white' />}
                       defaultValue={
@@ -106,20 +144,28 @@ export const EditCustomerForm = (editingCustomer: Customer) => {
                 name='birthdate'
                 defaultValue={formattedBirthdate}
                 render={({ field }) => {
+                  const hasError = hasFieldError(
+                    errors,
+                    'birthdate' as keyof typeof errors,
+                  )
+
                   return (
-                    <Popover {...register('birthdate')}>
+                    <Popover disabled={isSubmitting} {...register('birthdate')}>
                       <PopoverTrigger asChild>
                         <Button
                           variant={'outline'}
                           className={cn(
                             'relative justify-between border-zinc-700 bg-zinc-950 text-white',
+                            hasError && 'border-destructive',
                           )}
                         >
                           {field.value ? (
-                            format(field.value, 'PPP', { locale: pt })
+                            format(field.value, 'PPP', {
+                              locale: pt,
+                            })
                           ) : (
                             <span className='text-gray-400'>
-                              1 de janeiro de 2024
+                              1 de janeiro de 2025
                             </span>
                           )}
                           <LucideCalendarDays className='absolute end-2.5 size-5 text-white' />
@@ -164,6 +210,7 @@ export const EditCustomerForm = (editingCustomer: Customer) => {
             <Button
               type='submit'
               variant='green'
+              disabled={isSubmitting}
               className='flex flex-1 items-center gap-2 text-sm font-semibold sm:flex-grow-0'
             >
               <LucidePencil className='size-4 text-white' />

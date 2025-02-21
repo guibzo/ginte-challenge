@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/popover'
 import { editCustomerFormFields } from '@/constants/edit-customer-form-fields'
 import { cn } from '@/lib/cn'
+import { formatToDDMMYYYY } from '@/utills/format-to-dd-mm-yyyy'
 import { hasFieldError } from '@/utills/has-field-error'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { format, parse } from 'date-fns'
@@ -43,7 +44,12 @@ export const EditCustomerForm = (editingCustomer: Customer) => {
   const registerWithMask = useHookFormMask(register)
 
   const onSubmit = (data: EditCustomerSchema) => {
-    console.log(data)
+    const formattedBirthdate = formatToDDMMYYYY(String(data.birthdate))
+    const { birthdate, ...dataWithoutBirthdate } = data
+    console.log({
+      birthdate: formattedBirthdate,
+      ...dataWithoutBirthdate,
+    })
     toast(<CustomToast title='Cliente editado com sucesso!' description='' />)
   }
 
@@ -107,8 +113,6 @@ export const EditCustomerForm = (editingCustomer: Customer) => {
                 name='birthdate'
                 defaultValue={formattedBirthdate}
                 render={({ field }) => {
-                  console.log(field.value)
-
                   return (
                     <Popover {...register('birthdate')}>
                       <PopoverTrigger asChild>

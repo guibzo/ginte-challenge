@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const editCustomerSchema = z.object({
+export const registerCustomerSchema = z.object({
   name: z
     .string({ message: 'Nome inválido' })
     .min(1, { message: 'Nome inválido' }),
@@ -19,4 +19,4 @@ export const editCustomerSchema = z.object({
     .min(1, { message: 'Endereço inválido' }),
 })
 
-export type EditCustomerSchema = z.infer<typeof editCustomerSchema>
+export type RegisterCustomerSchema = z.infer<typeof registerCustomerSchema>

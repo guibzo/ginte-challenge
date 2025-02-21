@@ -1,7 +1,6 @@
 'use server'
 
 import { prisma } from '@/lib/prisma'
-import { formatToDDMMYYYY } from '@/utills/format-to-dd-mm-yyyy'
 import { registerCustomerSchema } from './schemas'
 
 export type FormState = {
@@ -26,7 +25,6 @@ export async function doRegisterCustomer(
   const parsedData = parsed.data
 
   const { name, email, phone, birthdate, address } = parsedData
-  const formattedBirthdate = formatToDDMMYYYY(String(birthdate))
 
   const existingCustomer = await prisma.customer.findUnique({
     where: {
@@ -41,12 +39,14 @@ export async function doRegisterCustomer(
     }
   }
 
+  const formattedPhone = phone.replace(/\D/g, '')
+
   await prisma.customer.create({
     data: {
       name,
       email,
-      phone,
-      birthdate: formattedBirthdate,
+      phone: formattedPhone,
+      birthdate,
       address,
     },
   })

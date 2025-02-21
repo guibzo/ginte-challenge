@@ -1,26 +1,20 @@
-'use client'
-
 import { Title } from '@/components/title'
-import { useCustomersCtx } from '@/contexts/customers-context'
+import { doGetCustomerById } from '@/queries/get-customer-by-id'
 import { LucideCircleChevronLeft } from 'lucide-react'
-import { useParams, useRouter } from 'next/navigation'
-import { useEffect } from 'react'
+import { redirect } from 'next/navigation'
 import { EditCustomerForm } from './(components)/form'
 
-export default function Page() {
-  const { findCustomerById } = useCustomersCtx()
-  const router = useRouter()
-  const { id } = useParams<{ id: string }>()
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}) {
+  const { id } = await params
+  const customer = await doGetCustomerById(id)
 
-  const customer = findCustomerById(id)
-
-  useEffect(() => {
-    if (!customer) {
-      router.replace('/')
-    }
-  }, [customer, router])
-
-  if (!customer) return null
+  if (!customer) {
+    redirect('/')
+  }
 
   return (
     <>

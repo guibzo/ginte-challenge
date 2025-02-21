@@ -1,4 +1,4 @@
-import type { Customer } from '@/app/@types/customer'
+import type { Customer } from '@/@types/customer'
 import { v4 as uuidv4 } from 'uuid'
 
 export const mockCustomers: Customer[] = [

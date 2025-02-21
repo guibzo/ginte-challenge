@@ -12,11 +12,11 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { useCustomersCtx } from '@/contexts/customers-context'
+import type { Customer } from '@prisma/client'
 import { LucidePencil } from 'lucide-react'
 import Link from 'next/link'
-import { mockCustomers } from './mock-customers'
 
-export const CustomersTable = () => {
+export const CustomersTable = ({ customers }: { customers: Customer[] }) => {
   const { checkedItems, toggleItem } = useCustomersCtx()
 
   return (
@@ -36,7 +36,12 @@ export const CustomersTable = () => {
           </TableHeader>
 
           <TableBody>
-            {mockCustomers.map((customer) => {
+            {customers.map((customer) => {
+              const formattedPhone = customer.phone.replace(
+                /(\d{2})(\d{5})(\d{4})/,
+                '($1) $2-$3',
+              )
+
               return (
                 <TableRow key={customer.id}>
                   <TableCell>
@@ -49,7 +54,7 @@ export const CustomersTable = () => {
                   </TableCell>
                   <TableCell>{customer.name}</TableCell>
                   <TableCell>{customer.email}</TableCell>
-                  <TableCell>{customer.phone}</TableCell>
+                  <TableCell>{formattedPhone}</TableCell>
                   <TableCell>{customer.birthdate}</TableCell>
                   <TableCell>{customer.address}</TableCell>
                   <TableCell>

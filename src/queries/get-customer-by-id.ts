@@ -3,11 +3,9 @@
 import { prisma } from '@/lib/prisma'
 import type { Customer } from '@prisma/client'
 
-export type Response = {
-  customer: Customer
-}
+export type Response = Customer
 
-export async function doFetchCustomers(id: string): Promise<Response | null> {
+export async function doGetCustomerById(id: string): Promise<Response | null> {
   const customer = await prisma.customer.findUnique({
     where: {
       id,
@@ -18,5 +16,5 @@ export async function doFetchCustomers(id: string): Promise<Response | null> {
     return null
   }
 
-  return { customer }
+  return customer
 }

@@ -1,6 +1,6 @@
 'use client'
 
-import type { Customer } from '@/app/@types/customer'
+import type { Customer } from '@/@types/customer'
 import { FormError } from '@/components/form-error'
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
@@ -155,7 +155,7 @@ export const EditCustomerForm = (editingCustomer: Customer) => {
                         <Button
                           variant={'outline'}
                           className={cn(
-                            'relative justify-between border-zinc-700 bg-zinc-950 text-white',
+                            'relative justify-between border-zinc-700 bg-zinc-950 text-white hover:brightness-100',
                             hasError && 'border-destructive',
                           )}
                         >

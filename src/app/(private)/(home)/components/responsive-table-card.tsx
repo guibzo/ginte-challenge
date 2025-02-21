@@ -5,19 +5,23 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Separator } from '@/components/ui/separator'
 import { useCustomersCtx } from '@/contexts/customers-context'
+import type { Customer } from '@prisma/client'
 import { LucidePencil } from 'lucide-react'
 import Link from 'next/link'
 import { Fragment } from 'react'
-import { mockCustomers } from './mock-customers'
 
-export const ResponsiveCustomersTableCard = () => {
+export const ResponsiveCustomersTableCard = ({
+  customers,
+}: {
+  customers: Customer[]
+}) => {
   const { checkedItems, toggleItem } = useCustomersCtx()
 
   return (
     <ul className='lg:hidden'>
       <Separator className='bg-border' />
 
-      {mockCustomers.map((customer) => {
+      {customers.map((customer) => {
         return (
           <Fragment key={customer.id}>
             <Card className='rounded-none border-0'>

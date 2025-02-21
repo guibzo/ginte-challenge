@@ -1,5 +1,6 @@
 import { Title } from '@/components/title'
 import { Card } from '@/components/ui/card'
+import { doFetchCustomers } from '@/queries/fetch-customers'
 import type { Metadata } from 'next'
 import { CardFooterComponent } from './components/card-footer'
 import { CardHeaderComponent } from './components/card-header'
@@ -10,7 +11,9 @@ export const metadata: Metadata = {
   title: 'Home',
 }
 
-export default function Page() {
+export default async function Page() {
+  const { customers } = await doFetchCustomers()
+
   return (
     <div>
       <Title>Clientes</Title>
@@ -18,9 +21,9 @@ export default function Page() {
       <Card className='mt-8'>
         <CardHeaderComponent />
 
-        <CustomersTable />
+        <CustomersTable customers={customers} />
 
-        <ResponsiveCustomersTableCard />
+        <ResponsiveCustomersTableCard customers={customers} />
 
         <CardFooterComponent />
       </Card>

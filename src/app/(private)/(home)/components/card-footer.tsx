@@ -5,7 +5,6 @@ import { CardFooter } from '@/components/ui/card'
 import { useCustomersCtx } from '@/contexts/customers-context'
 import { usePagination } from '@/hooks/use-pagination'
 import { LucideChevronLeft, LucideChevronRight } from 'lucide-react'
-import { mockCustomers } from './mock-customers'
 
 export const CardFooterComponent = () => {
   const { checkedItems } = useCustomersCtx()
@@ -21,7 +20,7 @@ export const CardFooterComponent = () => {
     <CardFooter className='mt-6 w-full pt-4 lg:mt-0 lg:pt-0'>
       <div className='flex w-full flex-col justify-between space-y-2.5 lg:flex-row lg:items-center'>
         <span className='text-sm font-semibold text-muted-foreground'>
-          {checkedLinesQtt ?? 0} de {mockCustomers.length} linhas selecionadas
+          {checkedLinesQtt ?? 0} de 10 linhas selecionadas
         </span>
 
         <div className='flex items-center gap-2'>

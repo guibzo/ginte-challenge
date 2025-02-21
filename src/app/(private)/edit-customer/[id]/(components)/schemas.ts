@@ -15,7 +15,6 @@ export const editCustomerSchema = z.object({
   address: z
     .string({ message: 'Endereço inválido' })
     .min(1, { message: 'Endereço inválido' }),
-  // id: z.string().optional(),
 })
 
 export type EditCustomerSchema = z.infer<typeof editCustomerSchema>

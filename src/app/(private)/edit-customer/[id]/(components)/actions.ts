@@ -1,7 +1,6 @@
 'use server'
 
 import { prisma } from '@/lib/prisma'
-import { formatToDDMMYYYY } from '@/utills/format-to-dd-mm-yyyy'
 import { editCustomerSchema } from './schemas'
 
 export type FormState = {
@@ -26,7 +25,6 @@ export async function doEditCustomer(
   const parsedData = parsed.data
 
   const { name, email, phone, birthdate, address } = parsedData
-  const formattedBirthdate = formatToDDMMYYYY(String(birthdate))
 
   const editingCustomerId = formData.id as string
 
@@ -49,7 +47,7 @@ export async function doEditCustomer(
     },
   })
 
-  if (existingCustomerEmail) {
+  if (existingCustomerEmail && existingCustomerEmail.id !== editingCustomerId) {
     return {
       message: 'E-mail já cadastrado.',
       code: 409,
@@ -61,7 +59,7 @@ export async function doEditCustomer(
       name,
       email,
       phone,
-      birthdate: formattedBirthdate,
+      birthdate,
       address,
     },
     where: {

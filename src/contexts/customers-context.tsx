@@ -1,7 +1,7 @@
 'use client'
 
+import type { Customer } from '@/@types/customer'
 import { mockCustomers } from '@/app/(private)/(home)/components/mock-customers'
-import type { Customer } from '@/app/@types/customer'
 import { useCheckedItems } from '@/hooks/use-checked-items'
 import { createContext, useContext, useState, type ReactNode } from 'react'
 

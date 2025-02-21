@@ -14,9 +14,7 @@ export async function doRegisterCustomer(
   data: FormData,
 ): Promise<FormState> {
   const formData = Object.fromEntries(data)
-  console.log('formData', formData)
   const parsed = registerCustomerSchema.safeParse(formData)
-  console.log('parsed', parsed)
 
   if (!parsed.success) {
     return {

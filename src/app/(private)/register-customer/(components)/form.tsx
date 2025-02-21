@@ -4,6 +4,7 @@ import { FormError } from '@/components/form-error'
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
 import { Card, CardContent } from '@/components/ui/card'
+import { CustomToast } from '@/components/ui/custom-toast'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import {
@@ -13,15 +14,15 @@ import {
 } from '@/components/ui/popover'
 import { registerCustomerFormFields } from '@/constants/register-customer-form-fields'
 import { cn } from '@/lib/cn'
-import { formatToDDMMYYYY } from '@/utills/format-to-dd-mm-yyyy'
 import { hasFieldError } from '@/utills/has-field-error'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { format } from 'date-fns'
 import { pt } from 'date-fns/locale/pt'
 import { LucideCalendarDays, LucideChevronLeft, LucidePlus } from 'lucide-react'
 import Link from 'next/link'
-import { useActionState, useRef } from 'react'
+import { startTransition, useActionState, useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import { useHookFormMask } from 'use-mask-input'
 import { doRegisterCustomer } from './actions'
 import { registerCustomerSchema, type RegisterCustomerSchema } from './schemas'
@@ -40,44 +41,45 @@ export const RegisterCustomerForm = () => {
     formState: { errors },
   } = useForm<RegisterCustomerSchema>({
     resolver: zodResolver(registerCustomerSchema),
+    defaultValues: {
+      birthdate: String(new Date()),
+      address: '123123',
+      phone: '12981004104',
+      email: 'teste@teste.com',
+      name: 'teste',
+    },
   })
 
   const registerWithMask = useHookFormMask(register)
 
-  console.log('state', state)
   const formRef = useRef<HTMLFormElement>(null)
 
-  // const onSubmit = async (data: RegisterCustomerSchema) => {
-  //   const formattedBirthdate = formatToDDMMYYYY(String(data.birthdate))
-  //   const { birthdate, ...dataWithoutBirthdate } = data
+  useEffect(() => {
+    if (!state.code) return
 
-  //   const formData = new FormData()
+    setTimeout(() => {
+      const toastProps = {
+        title: state.message,
+        ...(state.code !== 201 && {
+          type: 'error' as const,
+          error: 'Verifique os campos e tente novamente.',
+        }),
+      }
 
-  //   formData.append('name', data.name)
-  //   formData.append('email', data.email)
-  //   formData.append('phone', data.phone)
-  //   formData.append('birthdate', formattedBirthdate)
-  //   formData.append('address', data.address)
+      toast(<CustomToast {...toastProps} />)
+    }, 0)
+  }, [state])
 
-  //   await doRegisterCustomer(formData)
+  const onFormSubmit = () => {
+    startTransition(() => {
+      const formData = new FormData(formRef.current!)
+      const birthdateValue = getValues('birthdate')
 
-  //   console.log({
-  //     birthdate: formattedBirthdate,
-  //     ...dataWithoutBirthdate,
-  //   })
-  //   toast(
-  //     <CustomToast title='Cliente cadastrado com sucesso!' description='' />,
-  //   )
-  // }
+      formData.append('birthdate', birthdateValue)
 
-  // useEffect(() => {
-  //   state.code === 201 &&
-  //     toast(<CustomToast title={state.message} description='' />)
-  //   state.code === 400 &&
-  //     toast(<CustomToast type='error' title={state.message} description='' />)
-  //   state.code === 409 &&
-  //     toast(<CustomToast type='error' title={state.message} description='' />)
-  // }, [state])
+      formAction(formData)
+    })
+  }
 
   return (
     <Card className='mt-8'>
@@ -85,21 +87,7 @@ export const RegisterCustomerForm = () => {
         <form
           ref={formRef}
           className='space-y-8'
-          onSubmit={(event) => {
-            event.preventDefault()
-            const formData = new FormData(formRef.current!)
-            const birthdateValue = getValues('birthdate')
-
-            formData.append(
-              'birthdate',
-              formatToDDMMYYYY(String(birthdateValue)),
-            )
-
-            handleSubmit(() => {
-              formAction(formData)
-            })(event)
-          }}
-          action={formAction}
+          onSubmit={handleSubmit(onFormSubmit)}
         >
           <div className='grid w-full grid-cols-1 gap-4 sm:grid-cols-2'>
             {registerCustomerFormFields.map(

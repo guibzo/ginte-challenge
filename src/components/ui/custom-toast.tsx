@@ -43,9 +43,9 @@ export const CustomToast = ({
             </h2>
 
             <p className='text-xs text-muted-foreground'>
-              {error.message.length > 0
-                ? error.message
-                : 'Tente novamente mais tarde'}
+              {error?.message?.length > 0 && error.message}
+
+              {typeof error === 'string' ? error : 'Tente novamente mais tarde'}
             </p>
           </div>
         </div>

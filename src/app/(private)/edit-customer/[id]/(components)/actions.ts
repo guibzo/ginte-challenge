@@ -1,6 +1,7 @@
 'use server'
 
 import { prisma } from '@/lib/prisma'
+import { queryClient } from '@/lib/query-client'
 import { editCustomerSchema } from './schemas'
 
 export type FormState = {
@@ -66,6 +67,8 @@ export async function doEditCustomer(
       id: editingCustomerId,
     },
   })
+
+  queryClient.invalidateQueries({ queryKey: ['fetch-customers'] })
 
   return {
     message: 'Cliente editado com sucesso!',

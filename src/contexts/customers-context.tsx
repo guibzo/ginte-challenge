@@ -11,6 +11,7 @@ export type CustomersContextType = {
   customersCount: number
   searchQuery: string
   setSearchQuery: (searchQuery: string) => void
+  clearCheckedItems: () => void
 }
 
 const defaultCustomersContext: CustomersContextType = {
@@ -19,6 +20,7 @@ const defaultCustomersContext: CustomersContextType = {
   customersCount: 0,
   searchQuery: '',
   setSearchQuery: () => {},
+  clearCheckedItems: () => {},
 }
 
 export const CustomersContext = createContext<CustomersContextType>(
@@ -26,7 +28,8 @@ export const CustomersContext = createContext<CustomersContextType>(
 )
 
 export const CustomersProvider = ({ children }: { children: ReactNode }) => {
-  const { checkedItems, toggleItem } = useCheckedItems<Customer>()
+  const { checkedItems, toggleItem, clearCheckedItems } =
+    useCheckedItems<Customer>()
   const [searchQuery, setSearchQuery] = useState('')
 
   const { data: _customersCount } = getCustomersCountQuery()
@@ -39,6 +42,7 @@ export const CustomersProvider = ({ children }: { children: ReactNode }) => {
         toggleItem,
         customersCount,
         searchQuery,
+        clearCheckedItems,
         setSearchQuery,
       }}
     >

@@ -15,5 +15,9 @@ export function useCheckedItems<T extends { id: string }>() {
     })
   }
 
-  return { checkedItems, toggleItem }
+  const clearCheckedItems = () => {
+    setCheckedItems([])
+  }
+
+  return { checkedItems, toggleItem, clearCheckedItems }
 }

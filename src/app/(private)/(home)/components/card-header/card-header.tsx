@@ -16,9 +16,8 @@ export const CardHeaderComponent = () => {
 
   const debouncedUpdate = useRef(
     debounce((search: string) => {
-      console.log('search', search)
       paramsRouter.remove(['search'])
-      paramsRouter.add({ search })
+      paramsRouter.add({ search }).update().refresh()
 
       queryClient.invalidateQueries({ queryKey: ['fetch-customers'] })
     }, 800),

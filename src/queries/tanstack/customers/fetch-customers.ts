@@ -10,6 +10,7 @@ export const fetchCustomersQuery = ({
   const fetchData = async (): Promise<Customer[]> => {
     const response = await fetch(
       `/api/customers?page=${page}&itemsPerPage=${itemsPerPage}&search=${search}`,
+      { cache: 'no-store' },
     )
     const json = await response.json()
 
@@ -17,7 +18,7 @@ export const fetchCustomersQuery = ({
   }
 
   const { data, isLoading } = useQuery<Customer[]>({
-    queryKey: ['fetch-customers', { page, itemsPerPage }],
+    queryKey: ['fetch-customers', { page, itemsPerPage, search }],
     queryFn: fetchData,
   })
 

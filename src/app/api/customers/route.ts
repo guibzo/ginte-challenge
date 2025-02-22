@@ -10,8 +10,6 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 
   const itemsSkipQuantity = (page - 1) * itemsPerPage
 
-  console.log('query', page)
-
   try {
     const customers = await prisma.customer.findMany({
       orderBy: {

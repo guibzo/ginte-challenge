@@ -5,10 +5,11 @@ import { useQuery } from '@tanstack/react-query'
 export const fetchCustomersQuery = ({
   itemsPerPage,
   page,
+  search,
 }: PaginationParams) => {
   const fetchData = async (): Promise<Customer[]> => {
     const response = await fetch(
-      `/api/customers?page=${page}&itemsPerPage=${itemsPerPage}`,
+      `/api/customers?page=${page}&itemsPerPage=${itemsPerPage}&search=${search}`,
     )
     const json = await response.json()
 

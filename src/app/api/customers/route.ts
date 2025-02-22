@@ -3,10 +3,14 @@ import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
   const { searchParams } = new URL(req.url)
+
   const page = Number(searchParams.get('page')) || 1
   const itemsPerPage = Number(searchParams.get('itemsPerPage')) || 10
+  const searchQuery = searchParams.get('search') || ''
 
   const itemsSkipQuantity = (page - 1) * itemsPerPage
+
+  console.log('query', page)
 
   try {
     const customers = await prisma.customer.findMany({
@@ -15,6 +19,20 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
       },
       take: itemsPerPage,
       skip: itemsSkipQuantity,
+      where: {
+        OR: [
+          {
+            name: {
+              contains: searchQuery,
+            },
+          },
+          {
+            email: {
+              contains: searchQuery,
+            },
+          },
+        ],
+      },
     })
 
     return NextResponse.json(customers)

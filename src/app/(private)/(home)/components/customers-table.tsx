@@ -18,8 +18,7 @@ import { LucidePencil } from 'lucide-react'
 import Link from 'next/link'
 
 export const CustomersTable = () => {
-  const { checkedItems, toggleItem } = useCustomersCtx()
-
+  const { checkedItems, toggleItem, searchQuery } = useCustomersCtx()
   const { currentPage } = usePagination({
     itemsPerPage: 10,
   })
@@ -27,6 +26,7 @@ export const CustomersTable = () => {
   const { data: customers, isLoading } = fetchCustomersQuery({
     page: currentPage,
     itemsPerPage: 10,
+    search: searchQuery,
   })
 
   if (isLoading) {

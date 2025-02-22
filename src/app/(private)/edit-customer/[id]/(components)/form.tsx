@@ -3,36 +3,26 @@
 import type { Customer } from '@/@types/customer'
 import { FormError } from '@/components/form-error'
 import { Button } from '@/components/ui/button'
-import { Calendar } from '@/components/ui/calendar'
 import { Card, CardContent } from '@/components/ui/card'
 import { CustomToast } from '@/components/ui/custom-toast'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover'
 import { editCustomerFormFields } from '@/constants/edit-customer-form-fields'
 import { cn } from '@/lib/cn'
 import { getCustomerByIdQuery } from '@/queries/tanstack/customers/get-customer-by-id'
 import { hasFieldError } from '@/utills/has-field-error'
-import { parseDDMMYYYYToDate } from '@/utills/parse-dd-mm-yyyy-to-date'
+import { parseDDMMYYYYToISO } from '@/utills/parse-dd-mm-yyyy-to-iso'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { format } from 'date-fns'
-import { pt } from 'date-fns/locale/pt'
-import {
-  LucideCalendarDays,
-  LucideChevronLeft,
-  LucidePencil,
-} from 'lucide-react'
+import { parseDate } from '@internationalized/date'
+import { LucideChevronLeft, LucidePencil } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { startTransition, useActionState, useEffect, useRef } from 'react'
-import { Controller, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { useHookFormMask } from 'use-mask-input'
 import { doEditCustomer } from './actions'
+import { EditCustomerFormCalendar } from './form-calendar'
 import { editCustomerSchema, type EditCustomerSchema } from './schemas'
 
 export const EditCustomerForm = ({
@@ -98,8 +88,9 @@ export const EditCustomerForm = ({
     return null
   }
 
-  const formattedBirthdate = String(
-    parseDDMMYYYYToDate(editingCustomer!.birthdate),
+  console.log('customer', editingCustomer!.birthdate)
+  const formattedBirthdate = parseDate(
+    parseDDMMYYYYToISO(editingCustomer!.birthdate),
   )
 
   return (
@@ -156,7 +147,14 @@ export const EditCustomerForm = ({
             )}
 
             <div className='col-span-2 row-start-3 mt-2.5 flex flex-col gap-1.5 sm:col-span-1 sm:col-start-2 sm:row-start-2'>
-              <Label>Data de nascimento</Label>
+              <EditCustomerFormCalendar
+                control={control}
+                errors={errors as any}
+                isSubmitting={isSubmitting}
+                defaultValue={formattedBirthdate}
+              />
+
+              {/* <Label>Data de nascimento</Label>
 
               <Controller
                 control={control}
@@ -211,7 +209,7 @@ export const EditCustomerForm = ({
                 <FormError>
                   {errors['birthdate' as keyof typeof errors]!.message}
                 </FormError>
-              )}
+              )} */}
             </div>
           </div>
 

@@ -2,29 +2,22 @@
 
 import { FormError } from '@/components/form-error'
 import { Button } from '@/components/ui/button'
-import { Calendar } from '@/components/ui/calendar'
 import { Card, CardContent } from '@/components/ui/card'
 import { CustomToast } from '@/components/ui/custom-toast'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover'
 import { registerCustomerFormFields } from '@/constants/register-customer-form-fields'
 import { cn } from '@/lib/cn'
 import { hasFieldError } from '@/utills/has-field-error'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { format } from 'date-fns'
-import { pt } from 'date-fns/locale/pt'
-import { LucideCalendarDays, LucideChevronLeft, LucidePlus } from 'lucide-react'
+import { LucideChevronLeft, LucidePlus } from 'lucide-react'
 import Link from 'next/link'
 import { startTransition, useActionState, useEffect, useRef } from 'react'
-import { Controller, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { useHookFormMask } from 'use-mask-input'
 import { doRegisterCustomer } from './actions'
+import { RegisterCustomerFormCalendar } from './form-calendar'
 import { registerCustomerSchema, type RegisterCustomerSchema } from './schemas'
 
 export const RegisterCustomerForm = () => {
@@ -39,6 +32,7 @@ export const RegisterCustomerForm = () => {
     control,
     getValues,
     formState: { errors },
+    reset: resetForm,
   } = useForm<RegisterCustomerSchema>({
     resolver: zodResolver(registerCustomerSchema),
   })
@@ -60,6 +54,10 @@ export const RegisterCustomerForm = () => {
 
   useEffect(() => {
     if (!state.code) return
+
+    if (state.code === 201) {
+      resetForm()
+    }
 
     setTimeout(() => {
       const toastProps = {
@@ -123,62 +121,11 @@ export const RegisterCustomerForm = () => {
             )}
 
             <div className='col-span-2 row-start-3 mt-1.5 flex flex-col gap-2.5 sm:col-span-1 sm:col-start-2 sm:row-start-2'>
-              <Label>Data de nascimento</Label>
-
-              <Controller
+              <RegisterCustomerFormCalendar
                 control={control}
-                name='birthdate'
-                render={({ field }) => {
-                  const hasError = hasFieldError(
-                    errors,
-                    'birthdate' as keyof typeof errors,
-                  )
-
-                  return (
-                    <Popover {...register('birthdate')}>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant={'outline'}
-                          disabled={isSubmitting}
-                          className={cn(
-                            'relative justify-between border-zinc-700 bg-zinc-950 text-white hover:brightness-100',
-                            hasError && 'border-destructive',
-                          )}
-                        >
-                          {field.value ? (
-                            format(field.value, 'PPP', {
-                              locale: pt,
-                            })
-                          ) : (
-                            <span className='text-muted-foreground/80'>
-                              1 de janeiro de 2024
-                            </span>
-                          )}
-                          <LucideCalendarDays className='absolute end-2.5 size-5 text-white' />
-                        </Button>
-                      </PopoverTrigger>
-
-                      <PopoverContent className='w-auto p-0'>
-                        <Calendar
-                          mode='single'
-                          locale={pt}
-                          selected={
-                            field.value ? new Date(field.value) : undefined
-                          }
-                          onSelect={field.onChange}
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
-                  )
-                }}
+                errors={errors as any}
+                isSubmitting={isSubmitting}
               />
-
-              {hasFieldError(errors, 'birthdate' as keyof typeof errors) && (
-                <FormError>
-                  {errors['birthdate' as keyof typeof errors]!.message}
-                </FormError>
-              )}
             </div>
           </div>
 

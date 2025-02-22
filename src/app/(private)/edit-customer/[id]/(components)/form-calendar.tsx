@@ -41,8 +41,6 @@ export const EditCustomerFormCalendar = ({
   isSubmitting,
   defaultValue,
 }: Props) => {
-  console.log('default', defaultValue)
-
   return (
     <>
       <Label>Data de nascimento</Label>
@@ -68,6 +66,7 @@ export const EditCustomerFormCalendar = ({
                 className='*:not-first:mt-2'
                 isDisabled={isSubmitting}
                 defaultValue={defaultValue}
+                onChange={field.onChange}
               >
                 <div className='flex'>
                   <Group className='w-full'>

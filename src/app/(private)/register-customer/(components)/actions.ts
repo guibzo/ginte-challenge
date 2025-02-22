@@ -40,8 +40,6 @@ export async function doRegisterCustomer(
     }
   }
 
-  console.log('birth', birthdate)
-
   const formattedPhone = phone.replace(/\D/g, '')
 
   await prisma.customer.create({

@@ -88,7 +88,6 @@ export const EditCustomerForm = ({
     return null
   }
 
-  console.log('customer', editingCustomer!.birthdate)
   const formattedBirthdate = parseDate(
     parseDDMMYYYYToISO(editingCustomer!.birthdate),
   )

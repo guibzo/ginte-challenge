@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 import { CardFooterComponent } from './components/card-footer'
 import { CardHeaderComponent } from './components/card-header/card-header'
 import { CustomersTable } from './components/customers-table'
+import { ResponsiveCustomersTableCard } from './components/responsive-table-card'
 
 export const metadata: Metadata = {
   title: 'Home',
@@ -18,8 +19,7 @@ export default async function Page() {
         <CardHeaderComponent />
 
         <CustomersTable />
-
-        {/* <ResponsiveCustomersTableCard /> */}
+        <ResponsiveCustomersTableCard />
 
         <CardFooterComponent />
       </Card>

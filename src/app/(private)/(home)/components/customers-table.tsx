@@ -1,5 +1,6 @@
 'use client'
 
+import { EmptyTable } from '@/components/empty-table'
 import { Button } from '@/components/ui/button'
 import { CardContent } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
@@ -14,7 +15,7 @@ import {
 import { useCustomersCtx } from '@/contexts/customers-context'
 import { usePagination } from '@/hooks/use-pagination'
 import { fetchCustomersQuery } from '@/queries/tanstack/customers/fetch-customers'
-import { LucideMailOpen, LucidePencil } from 'lucide-react'
+import { LucidePencil } from 'lucide-react'
 import Link from 'next/link'
 import { CustomersTableSkeleton } from './customers-table-skeleton'
 
@@ -29,6 +30,8 @@ export const CustomersTable = () => {
     itemsPerPage: 10,
     search: searchQuery,
   })
+
+  const hasCustomersData = !isLoading && customers
 
   return (
     <CardContent className='hidden lg:block'>
@@ -47,8 +50,7 @@ export const CustomersTable = () => {
           </TableHeader>
 
           <TableBody className='relative'>
-            {!isLoading &&
-              customers &&
+            {hasCustomersData &&
               customers.length > 0 &&
               customers?.map((customer) => {
                 const formattedPhone = customer.phone.replace(
@@ -89,22 +91,16 @@ export const CustomersTable = () => {
                   </TableRow>
                 )
               })}
-            {isLoading && <CustomersTableSkeleton />}
 
-            {!isLoading && customers && customers.length === 0 && (
-              <div className='h-[570px]'>
-                <div className='absolute bottom-1/2 left-1/2 top-1/2 flex w-full -translate-x-1/2 items-center justify-center'>
-                  <div className='flex flex-col items-center gap-2.5'>
-                    <LucideMailOpen className='size-20 text-muted-foreground' />
-                    <p className='text-xl font-semibold text-muted-foreground'>
-                      Nenhum item encontrado.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )}
+            {isLoading && <CustomersTableSkeleton />}
           </TableBody>
         </Table>
+
+        {hasCustomersData && customers.length === 0 && (
+          <div className='relative h-[570px] w-full'>
+            <EmptyTable />
+          </div>
+        )}
       </div>
     </CardContent>
   )

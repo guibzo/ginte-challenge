@@ -18,13 +18,13 @@ export const CardHeaderComponent = () => {
     debounce((search: string) => {
       paramsRouter.remove(['search'])
       paramsRouter.add({ search }).update().refresh()
+      setSearchQuery(search)
 
       queryClient.invalidateQueries({ queryKey: ['fetch-customers'] })
     }, 800),
   ).current
 
   const onUpdateSearch = useCallback((search: string) => {
-    setSearchQuery(search)
     debouncedUpdate(search)
   }, [])
 

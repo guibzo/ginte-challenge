@@ -13,14 +13,14 @@ export const EditCustomerTitle = ({
 }: {
   editingCustomerId: string
 }) => {
-  const { data: customer } = getCustomerByIdQuery(editingCustomerId)
+  const { data: customer, isLoading } = getCustomerByIdQuery(editingCustomerId)
   const router = useRouter()
 
   useEffect(() => {
-    if (!customer) {
+    if (!isLoading && !customer) {
       router.replace('/')
     }
-  }, [])
+  }, [customer])
 
   if (!customer) {
     return null

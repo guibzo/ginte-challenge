@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/popover'
 import { editCustomerFormFields } from '@/constants/edit-customer-form-fields'
 import { cn } from '@/lib/cn'
+import { getCustomerByIdQuery } from '@/queries/tanstack/customers/get-customer-by-id'
 import { hasFieldError } from '@/utills/has-field-error'
 import { parseDDMMYYYYToDate } from '@/utills/parse-dd-mm-yyyy-to-date'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -26,6 +27,7 @@ import {
   LucidePencil,
 } from 'lucide-react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { startTransition, useActionState, useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
@@ -33,7 +35,14 @@ import { useHookFormMask } from 'use-mask-input'
 import { doEditCustomer } from './actions'
 import { editCustomerSchema, type EditCustomerSchema } from './schemas'
 
-export const EditCustomerForm = (editingCustomer: Customer) => {
+export const EditCustomerForm = ({
+  editingCustomerId,
+}: {
+  editingCustomerId: string
+}) => {
+  const router = useRouter()
+  const { data: editingCustomer } = getCustomerByIdQuery(editingCustomerId)
+
   const [state, formAction, isSubmitting] = useActionState(doEditCustomer, {
     message: '',
     code: 0,
@@ -59,15 +68,11 @@ export const EditCustomerForm = (editingCustomer: Customer) => {
       const birthdateValue = getValues('birthdate')
 
       formData.append('birthdate', birthdateValue)
-      formData.append('id', editingCustomer.id)
+      formData.append('id', editingCustomer!.id)
 
       formAction(formData)
     })
   }
-
-  const formattedBirthdate = String(
-    parseDDMMYYYYToDate(editingCustomer.birthdate),
-  )
 
   useEffect(() => {
     if (!state.code) return
@@ -82,6 +87,20 @@ export const EditCustomerForm = (editingCustomer: Customer) => {
       toast(<CustomToast {...toastProps} />)
     }, 0)
   }, [state])
+
+  useEffect(() => {
+    if (!editingCustomer) {
+      router.replace('/')
+    }
+  }, [])
+
+  if (!editingCustomer) {
+    return null
+  }
+
+  const formattedBirthdate = String(
+    parseDDMMYYYYToDate(editingCustomer!.birthdate),
+  )
 
   return (
     <Card className='mt-8'>

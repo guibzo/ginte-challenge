@@ -1,10 +1,5 @@
-'use server'
-
 import { prisma } from '@/lib/prisma'
-import type { Customer } from '@prisma/client'
 import { NextRequest, NextResponse } from 'next/server'
-
-export type Response = Customer[]
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
   const { searchParams } = new URL(req.url)

@@ -8,17 +8,16 @@ export const fetchCustomersQuery = ({
 }: PaginationParams) => {
   const fetchData = async (): Promise<Customer[]> => {
     const response = await fetch(
-      `/api/fetch-customers?page=${page}&itemsPerPage=${itemsPerPage}`,
+      `/api/customers?page=${page}&itemsPerPage=${itemsPerPage}`,
     )
     const json = await response.json()
 
     return json
   }
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading } = useQuery<Customer[]>({
     queryKey: ['fetch-customers', { page, itemsPerPage }],
     queryFn: fetchData,
-    staleTime: 0,
   })
 
   return {

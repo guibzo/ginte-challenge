@@ -3,7 +3,7 @@
 import type { Customer } from '@/@types/customer'
 import { mockCustomers } from '@/app/(private)/(home)/components/mock-customers'
 import { useCheckedItems } from '@/hooks/use-checked-items'
-import { getCustomersCountQuery } from '@/queries/tanstack/get-customers-count'
+import { getCustomersCountQuery } from '@/queries/tanstack/customers/get-customers-count'
 import { createContext, useContext, useState, type ReactNode } from 'react'
 
 export type CustomersContextType = {

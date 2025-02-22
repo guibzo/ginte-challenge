@@ -1,6 +1,7 @@
 'use server'
 
 import { prisma } from '@/lib/prisma'
+import { queryClient } from '@/lib/query-client'
 import { registerCustomerSchema } from './schemas'
 
 export type FormState = {
@@ -50,6 +51,9 @@ export async function doRegisterCustomer(
       address,
     },
   })
+
+  queryClient.invalidateQueries({ queryKey: ['get-customers-count'] })
+  queryClient.invalidateQueries({ queryKey: ['fetch-customers'] })
 
   return {
     message: 'Cliente cadastrado com sucesso!',

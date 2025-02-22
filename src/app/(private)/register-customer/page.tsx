@@ -12,6 +12,7 @@ export default function Page() {
     <>
       <div className='flex items-center gap-4'>
         <LucidePlus className='-mb-1.5 size-8 text-app-green-200' />
+
         <Title>Cadastrar Cliente</Title>
       </div>
 

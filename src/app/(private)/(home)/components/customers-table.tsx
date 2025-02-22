@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/table'
 import { useCustomersCtx } from '@/contexts/customers-context'
 import { usePagination } from '@/hooks/use-pagination'
-import { fetchCustomersQuery } from '@/queries/tanstack/fetch-customers'
+import { fetchCustomersQuery } from '@/queries/tanstack/customers/fetch-customers'
 import { LucidePencil } from 'lucide-react'
 import Link from 'next/link'
 

@@ -2,7 +2,7 @@ import { Title } from '@/components/title'
 import { Card } from '@/components/ui/card'
 import type { Metadata } from 'next'
 import { CardFooterComponent } from './components/card-footer'
-import { CardHeaderComponent } from './components/card-header'
+import { CardHeaderComponent } from './components/card-header/card-header'
 import { CustomersTable } from './components/customers-table'
 
 export const metadata: Metadata = {
@@ -10,11 +10,6 @@ export const metadata: Metadata = {
 }
 
 export default async function Page() {
-  // const customers = await doFetchCustomers({
-  //   page: 1,
-  //   itemsPerPage: 10,
-  // })
-
   return (
     <div>
       <Title>Clientes</Title>

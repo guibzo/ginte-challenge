@@ -1,17 +1,15 @@
-import { parseAsInteger, useQueryState } from 'nuqs'
+import { useCustomersCtx } from '@/contexts/customers-context'
+import { useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
+import { useParamsRouter } from './use-params-router'
 
-export const usePagination = ({
-  itemsPerPage,
-  totalItems,
-}: {
-  totalItems: number
-  itemsPerPage: number
-}) => {
-  const [currentPage, setCurrentPage] = useQueryState(
-    'page',
-    parseAsInteger.withDefault(1),
-  )
+export const usePagination = ({ itemsPerPage }: { itemsPerPage: number }) => {
+  const router = useParamsRouter()
+  const { customersCount: totalItems } = useCustomersCtx()
+  const currentPage = Number(useSearchParams().get('page')) ?? 1
+
+  const isFirstPage = currentPage === 1
+  const isLastPage = currentPage * itemsPerPage >= totalItems
 
   const totalPages = Math.ceil(totalItems / itemsPerPage)
 
@@ -19,13 +17,21 @@ export const usePagination = ({
     if (type === 'previous') {
       if (currentPage === 1) return
 
-      setCurrentPage((prev) => prev - 1)
+      router.remove(['page'])
+      router
+        .add({ page: String(currentPage - 1) })
+        .update()
+        .refresh()
     }
 
     if (type === 'next') {
       if (currentPage === totalPages) return
 
-      setCurrentPage((prev) => prev + 1)
+      router.remove(['page'])
+      router
+        .add({ page: String(currentPage + 1) })
+        .update()
+        .refresh()
     }
   }
 
@@ -33,13 +39,19 @@ export const usePagination = ({
     const isPageInvalid = currentPage < 1 || currentPage > totalPages
 
     if (!currentPage || isPageInvalid) {
-      setCurrentPage(1)
+      router.remove(['page'])
+      router
+        .add({ page: String(1) })
+        .update()
+        .refresh()
     }
-  }, [currentPage, setCurrentPage])
+  }, [currentPage])
 
   return {
     currentPage,
     totalPages,
     handleChangePage,
+    isLastPage,
+    isFirstPage,
   }
 }

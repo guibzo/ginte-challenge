@@ -50,6 +50,38 @@ const customersSeed: Prisma.CustomerCreateInput[] = [
     birthdate: '20/06/2000',
     address: 'Rua XYZ',
   },
+
+  {
+    name: 'Latoya Bartoletti',
+    email: 'alison48312331313131@hotmail.com',
+    phone: '12981004104',
+    birthdate: '20/06/2000',
+    address: 'Rua XYZ',
+  },
+
+  {
+    name: 'Latoya Bartoletti',
+    email: 'alison48331311133131@hotmail.com',
+    phone: '12981004104',
+    birthdate: '20/06/2000',
+    address: 'Rua XYZ',
+  },
+
+  {
+    name: 'Latoya Bartoletti',
+    email: 'alison4833113131313131@hotmail.com',
+    phone: '12981004104',
+    birthdate: '20/06/2000',
+    address: 'Rua XYZ',
+  },
+
+  {
+    name: 'Latoya Bartoletti',
+    email: 'alison483345553251313131@hotmail.com',
+    phone: '12981004104',
+    birthdate: '20/06/2000',
+    address: 'Rua XYZ',
+  },
 ]
 
 const prisma = new PrismaClient()

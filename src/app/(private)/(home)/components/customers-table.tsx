@@ -12,12 +12,26 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { useCustomersCtx } from '@/contexts/customers-context'
-import type { Customer } from '@prisma/client'
+import { usePagination } from '@/hooks/use-pagination'
+import { fetchCustomersQuery } from '@/queries/tanstack/fetch-customers'
 import { LucidePencil } from 'lucide-react'
 import Link from 'next/link'
 
-export const CustomersTable = ({ customers }: { customers: Customer[] }) => {
+export const CustomersTable = () => {
   const { checkedItems, toggleItem } = useCustomersCtx()
+
+  const { currentPage } = usePagination({
+    itemsPerPage: 10,
+  })
+
+  const { data: customers, isLoading } = fetchCustomersQuery({
+    page: currentPage,
+    itemsPerPage: 10,
+  })
+
+  if (isLoading) {
+    return <div className='text-3xl text-white'>loading</div>
+  }
 
   return (
     <CardContent className='hidden lg:block'>
@@ -36,7 +50,7 @@ export const CustomersTable = ({ customers }: { customers: Customer[] }) => {
           </TableHeader>
 
           <TableBody>
-            {customers.map((customer) => {
+            {customers?.map((customer) => {
               const formattedPhone = customer.phone.replace(
                 /(\d{2})(\d{5})(\d{4})/,
                 '($1) $2-$3',

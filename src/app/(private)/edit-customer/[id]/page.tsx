@@ -1,5 +1,5 @@
 import { Title } from '@/components/title'
-import { doGetCustomerById } from '@/queries/get-customer-by-id'
+import { doGetCustomerById } from '@/queries/actions/get-customer-by-id'
 import { LucideCircleChevronLeft } from 'lucide-react'
 import { redirect } from 'next/navigation'
 import { EditCustomerForm } from './(components)/form'

@@ -1,5 +1,6 @@
 'use client'
 
+import { doDeleteCustomers } from '@/actions/customers/do-delete-customers'
 import { Button } from '@/components/ui/button'
 import { CustomToast } from '@/components/ui/custom-toast'
 import {
@@ -13,18 +14,15 @@ import {
 import { Separator } from '@/components/ui/separator'
 import { useCustomersCtx } from '@/contexts/customers-context'
 import { useMediaQuery } from '@/hooks/use-media-query'
-import { useParamsRouter } from '@/hooks/use-params-router'
 import { queryClient } from '@/lib/query-client'
 import { formatMediaQueryIntoPX } from '@/utills/format-media-query-into-px'
 import { LucideChevronLeft, LucideTrash2 } from 'lucide-react'
 import { useActionState, useEffect } from 'react'
 import { toast } from 'sonner'
-import { doDeleteCustomers } from './actions'
 
 export const CardHeaderDeleteCustomers = () => {
   const { checkedItems: customers, clearCheckedItems } = useCustomersCtx()
   const isMobile = useMediaQuery(formatMediaQueryIntoPX(1024))
-  const router = useParamsRouter()
 
   const customersIds = [...customers.map((customer) => customer.id)]
   const doDeleteCustomersWithBindedIds = doDeleteCustomers.bind(null, {
@@ -47,7 +45,8 @@ export const CardHeaderDeleteCustomers = () => {
 
     if (state.code === 204) {
       queryClient.invalidateQueries({ queryKey: ['fetch-customers'] })
-      router.refresh().update()
+      queryClient.invalidateQueries({ queryKey: ['get-customers-count'] })
+
       clearCheckedItems()
     }
 

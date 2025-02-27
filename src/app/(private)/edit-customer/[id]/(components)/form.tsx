@@ -1,6 +1,7 @@
 'use client'
 
 import type { Customer } from '@/@types/customer'
+import { doEditCustomer } from '@/actions/customers/do-edit-customer'
 import { FormError } from '@/components/form-error'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -9,6 +10,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { editCustomerFormFields } from '@/constants/edit-customer-form-fields'
 import { cn } from '@/lib/cn'
+import { queryClient } from '@/lib/query-client'
 import { getCustomerByIdQuery } from '@/queries/tanstack/customers/get-customer-by-id'
 import { hasFieldError } from '@/utills/has-field-error'
 import { parseDDMMYYYYToISO } from '@/utills/parse-dd-mm-yyyy-to-iso'
@@ -21,7 +23,6 @@ import { startTransition, useActionState, useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { useHookFormMask } from 'use-mask-input'
-import { doEditCustomer } from './actions'
 import { EditCustomerFormCalendar } from './form-calendar'
 import { editCustomerSchema, type EditCustomerSchema } from './schemas'
 
@@ -76,6 +77,10 @@ export const EditCustomerForm = ({
 
       toast(<CustomToast {...toastProps} />)
     }, 0)
+
+    if (state.code === 204) {
+      queryClient.invalidateQueries({ queryKey: ['fetch-customers'] })
+    }
   }, [state])
 
   useEffect(() => {

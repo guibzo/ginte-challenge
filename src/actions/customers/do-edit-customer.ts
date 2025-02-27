@@ -1,20 +1,19 @@
 'use server'
 
+import { editCustomerSchema } from '@/app/(private)/edit-customer/[id]/(components)/schemas'
 import { prisma } from '@/lib/prisma'
-import { queryClient } from '@/lib/query-client'
-import { registerCustomerSchema } from './schemas'
 
 export type FormState = {
   message: string
   code: number
 }
 
-export async function doRegisterCustomer(
+export async function doEditCustomer(
   prevState: FormState,
   data: FormData,
 ): Promise<FormState> {
   const formData = Object.fromEntries(data)
-  const parsed = registerCustomerSchema.safeParse(formData)
+  const parsed = editCustomerSchema.safeParse(formData)
 
   if (!parsed.success) {
     return {
@@ -27,36 +26,49 @@ export async function doRegisterCustomer(
 
   const { name, email, phone, birthdate, address } = parsedData
 
+  const editingCustomerId = formData.id as string
+
   const existingCustomer = await prisma.customer.findUnique({
+    where: {
+      id: editingCustomerId,
+    },
+  })
+
+  if (!existingCustomer) {
+    return {
+      message: 'Usuário não encontrado.',
+      code: 404,
+    }
+  }
+
+  const existingCustomerEmail = await prisma.customer.findUnique({
     where: {
       email,
     },
   })
 
-  if (existingCustomer) {
+  if (existingCustomerEmail && existingCustomerEmail.id !== editingCustomerId) {
     return {
       message: 'E-mail já cadastrado.',
       code: 409,
     }
   }
 
-  const formattedPhone = phone.replace(/\D/g, '')
-
-  await prisma.customer.create({
+  await prisma.customer.update({
     data: {
       name,
       email,
-      phone: formattedPhone,
+      phone,
       birthdate,
       address,
     },
+    where: {
+      id: editingCustomerId,
+    },
   })
 
-  queryClient.invalidateQueries({ queryKey: ['get-customers-count'] })
-  queryClient.invalidateQueries({ queryKey: ['fetch-customers'] })
-
   return {
-    message: 'Cliente cadastrado com sucesso!',
-    code: 201,
+    message: 'Cliente editado com sucesso!',
+    code: 204,
   }
 }

@@ -1,5 +1,6 @@
 'use client'
 
+import { doRegisterCustomer } from '@/actions/customers/do-register-customer'
 import { FormError } from '@/components/form-error'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -8,6 +9,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { registerCustomerFormFields } from '@/constants/register-customer-form-fields'
 import { cn } from '@/lib/cn'
+import { queryClient } from '@/lib/query-client'
 import { hasFieldError } from '@/utills/has-field-error'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { LucideChevronLeft, LucidePlus } from 'lucide-react'
@@ -16,7 +18,6 @@ import { startTransition, useActionState, useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { useHookFormMask } from 'use-mask-input'
-import { doRegisterCustomer } from './actions'
 import { RegisterCustomerFormCalendar } from './form-calendar'
 import { registerCustomerSchema, type RegisterCustomerSchema } from './schemas'
 
@@ -56,6 +57,9 @@ export const RegisterCustomerForm = () => {
     if (!state.code) return
 
     if (state.code === 201) {
+      queryClient.invalidateQueries({ queryKey: ['get-customers-count'] })
+      queryClient.invalidateQueries({ queryKey: ['fetch-customers'] })
+
       resetForm()
     }
 

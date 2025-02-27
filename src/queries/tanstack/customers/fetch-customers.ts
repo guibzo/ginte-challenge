@@ -10,7 +10,7 @@ export const fetchCustomersQuery = ({
   const fetchData = async (): Promise<Customer[]> => {
     const response = await fetch(
       `/api/customers?page=${page}&itemsPerPage=${itemsPerPage}&search=${search}`,
-      { cache: 'no-store' },
+      { next: { tags: ['fetch-customers'] } },
     )
     const json = await response.json()
 

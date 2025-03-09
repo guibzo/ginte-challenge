@@ -157,63 +157,6 @@ export const EditCustomerForm = ({
                 isSubmitting={isSubmitting}
                 defaultValue={formattedBirthdate}
               />
-
-              {/* <Label>Data de nascimento</Label>
-
-              <Controller
-                control={control}
-                name='birthdate'
-                defaultValue={formattedBirthdate}
-                render={({ field }) => {
-                  const hasError = hasFieldError(
-                    errors,
-                    'birthdate' as keyof typeof errors,
-                  )
-
-                  return (
-                    <Popover disabled={isSubmitting} {...register('birthdate')}>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant={'outline'}
-                          className={cn(
-                            'relative justify-between border-zinc-700 bg-zinc-950 text-white hover:brightness-100',
-                            hasError && 'border-destructive',
-                          )}
-                        >
-                          {field.value ? (
-                            format(field.value, 'PPP', {
-                              locale: pt,
-                            })
-                          ) : (
-                            <span className='text-gray-400'>
-                              1 de janeiro de 2025
-                            </span>
-                          )}
-                          <LucideCalendarDays className='absolute end-2.5 size-5 text-white' />
-                        </Button>
-                      </PopoverTrigger>
-
-                      <PopoverContent className='w-auto p-0'>
-                        <Calendar
-                          mode='single'
-                          locale={pt}
-                          selected={
-                            field.value ? new Date(field.value) : undefined
-                          }
-                          onSelect={field.onChange}
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
-                  )
-                }}
-              />
-
-              {hasFieldError(errors, 'birthdate' as keyof typeof errors) && (
-                <FormError>
-                  {errors['birthdate' as keyof typeof errors]!.message}
-                </FormError>
-              )} */}
             </div>
           </div>
 

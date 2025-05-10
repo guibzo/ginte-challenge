@@ -1,6 +1,7 @@
 import { Title } from '@/components/title'
 import { Card } from '@/components/ui/card'
 import type { Metadata } from 'next'
+import { Suspense } from 'react'
 import { CardFooterComponent } from './components/card-footer'
 import { CardHeaderComponent } from './components/card-header/card-header'
 import { CustomersTable } from './components/customers-table'
@@ -16,12 +17,14 @@ export default async function Page() {
       <Title>Clientes</Title>
 
       <Card className='mt-8'>
-        <CardHeaderComponent />
+        <Suspense>
+          <CardHeaderComponent />
 
-        <CustomersTable />
-        <ResponsiveCustomersTableCard />
+          <CustomersTable />
+          <ResponsiveCustomersTableCard />
 
-        <CardFooterComponent />
+          <CardFooterComponent />
+        </Suspense>
       </Card>
     </div>
   )

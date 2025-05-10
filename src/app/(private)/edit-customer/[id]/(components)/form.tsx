@@ -45,6 +45,7 @@ export const EditCustomerForm = ({
     control,
     getValues,
     formState: { errors },
+    reset: resetForm,
   } = useForm<EditCustomerSchema>({
     resolver: zodResolver(editCustomerSchema),
   })
@@ -66,6 +67,25 @@ export const EditCustomerForm = ({
   }
 
   useEffect(() => {
+    if (editingCustomer) {
+      const formValues: any = {}
+
+      editCustomerFormFields.forEach(({ fieldName }) => {
+        if (fieldName in editingCustomer) {
+          formValues[fieldName] = editingCustomer[fieldName as keyof Customer]
+        }
+      })
+
+      const formattedBirthdate = parseDate(
+        parseDDMMYYYYToISO(editingCustomer.birthdate),
+      )
+      formValues.birthdate = formattedBirthdate.toString()
+
+      resetForm(formValues)
+    }
+  }, [editingCustomer, resetForm])
+
+  useEffect(() => {
     if (!state.code) return
 
     setTimeout(() => {
@@ -79,23 +99,25 @@ export const EditCustomerForm = ({
     }, 0)
 
     if (state.code === 204) {
-      queryClient.invalidateQueries({ queryKey: ['fetch-customers'] })
+      resetForm()
+
+      queryClient.invalidateQueries({
+        queryKey: ['fetch-customers'],
+      })
+
+      router.push('/?page=1')
     }
-  }, [state])
+  }, [state, editingCustomerId, resetForm, router])
 
   useEffect(() => {
     if (!editingCustomer) {
       router.replace('/')
     }
-  }, [])
+  }, [editingCustomer, router])
 
   if (!editingCustomer) {
     return null
   }
-
-  const formattedBirthdate = parseDate(
-    parseDDMMYYYYToISO(editingCustomer!.birthdate),
-  )
 
   return (
     <Card className='mt-8'>
@@ -139,9 +161,6 @@ export const EditCustomerForm = ({
                       disabled={isSubmitting}
                       placeholder={placeholder}
                       endIcon={<Icon className='size-5 text-white' />}
-                      defaultValue={
-                        editingCustomer[fieldName as keyof Customer]
-                      }
                       className={cn(hasError && 'border-destructive')}
                     />
                     {hasError && <FormError>{fieldError}</FormError>}
@@ -155,7 +174,9 @@ export const EditCustomerForm = ({
                 control={control}
                 errors={errors as any}
                 isSubmitting={isSubmitting}
-                defaultValue={formattedBirthdate}
+                defaultValue={parseDate(
+                  parseDDMMYYYYToISO(editingCustomer.birthdate),
+                )}
               />
             </div>
           </div>

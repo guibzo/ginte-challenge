@@ -1,7 +1,7 @@
+import { LucideEye, LucideEyeOff } from 'lucide-react'
 import * as React from 'react'
 
 import { cn } from '@/lib/cn'
-import { LucideEye, LucideEyeOff } from 'lucide-react'
 
 type CustomInputProps = {
   startIcon?: React.ReactNode

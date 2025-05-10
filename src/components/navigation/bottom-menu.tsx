@@ -1,5 +1,8 @@
 'use client'
 
+import { LucideLogOut, LucideMenu } from 'lucide-react'
+import { usePathname } from 'next/navigation'
+
 import { Button } from '@/components/ui/button'
 import {
   Drawer,
@@ -9,8 +12,7 @@ import {
   DrawerTrigger,
 } from '@/components/ui/drawer'
 import { navigationItems } from '@/constants/navigation-items'
-import { LucideLogOut, LucideMenu } from 'lucide-react'
-import { usePathname } from 'next/navigation'
+
 import { Title } from '../title'
 import { MenuLink } from './menu-link'
 

@@ -1,9 +1,10 @@
 'use client'
 
+import { createContext, type ReactNode,useContext, useState } from 'react'
+
 import type { Customer } from '@/@types/customer'
 import { useCheckedItems } from '@/hooks/use-checked-items'
 import { getCustomersCountQuery } from '@/queries/tanstack/customers/get-customers-count'
-import { createContext, useContext, useState, type ReactNode } from 'react'
 
 export type CustomersContextType = {
   checkedItems: Customer[]

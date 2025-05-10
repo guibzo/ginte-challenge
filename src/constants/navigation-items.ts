@@ -1,4 +1,4 @@
-import { LucidePlus, LucideUsers2, type LucideIcon } from 'lucide-react'
+import { type LucideIcon,LucidePlus, LucideUsers2 } from 'lucide-react'
 import { v4 as uuidv4 } from 'uuid'
 
 export type NavigationItem = {

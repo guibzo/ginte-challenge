@@ -1,7 +1,9 @@
-import { Title } from '@/components/title'
-import { Card } from '@/components/ui/card'
 import type { Metadata } from 'next'
 import { Suspense } from 'react'
+
+import { Title } from '@/components/title'
+import { Card } from '@/components/ui/card'
+
 import { CardFooterComponent } from './components/card-footer'
 import { CardHeaderComponent } from './components/card-header/card-header'
 import { CustomersTable } from './components/customers-table'

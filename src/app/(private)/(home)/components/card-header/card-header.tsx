@@ -1,13 +1,15 @@
 'use client'
 
+import debounce from 'lodash.debounce'
+import { LucideSearch } from 'lucide-react'
+import { useCallback, useRef } from 'react'
+
 import { CardHeader } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { useCustomersCtx } from '@/contexts/customers-context'
 import { useParamsRouter } from '@/hooks/use-params-router'
 import { queryClient } from '@/lib/query-client'
-import debounce from 'lodash.debounce'
-import { LucideSearch } from 'lucide-react'
-import { useCallback, useRef } from 'react'
+
 import { CardHeaderDeleteCustomers } from './delete-customers'
 
 export const CardHeaderComponent = () => {

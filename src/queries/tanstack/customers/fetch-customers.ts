@@ -1,6 +1,7 @@
-import type { PaginationParams } from '@/@types/pagination-params'
 import type { Customer } from '@prisma/client'
 import { useQuery } from '@tanstack/react-query'
+
+import type { PaginationParams } from '@/@types/pagination-params'
 
 export const fetchCustomersQuery = ({
   itemsPerPage,

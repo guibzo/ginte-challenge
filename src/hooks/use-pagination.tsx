@@ -1,6 +1,8 @@
-import { useCustomersCtx } from '@/contexts/customers-context'
 import { useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
+
+import { useCustomersCtx } from '@/contexts/customers-context'
+
 import { useParamsRouter } from './use-params-router'
 
 export const usePagination = ({ itemsPerPage }: { itemsPerPage: number }) => {

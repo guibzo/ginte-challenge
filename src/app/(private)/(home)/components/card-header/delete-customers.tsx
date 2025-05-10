@@ -1,5 +1,9 @@
 'use client'
 
+import { LucideChevronLeft, LucideTrash2 } from 'lucide-react'
+import { useActionState, useEffect } from 'react'
+import { toast } from 'sonner'
+
 import { doDeleteCustomers } from '@/actions/customers/do-delete-customers'
 import { Button } from '@/components/ui/button'
 import { CustomToast } from '@/components/ui/custom-toast'
@@ -16,9 +20,6 @@ import { useCustomersCtx } from '@/contexts/customers-context'
 import { useMediaQuery } from '@/hooks/use-media-query'
 import { queryClient } from '@/lib/query-client'
 import { formatMediaQueryIntoPX } from '@/utills/format-media-query-into-px'
-import { LucideChevronLeft, LucideTrash2 } from 'lucide-react'
-import { useActionState, useEffect } from 'react'
-import { toast } from 'sonner'
 
 export const CardHeaderDeleteCustomers = () => {
   const { checkedItems: customers, clearCheckedItems } = useCustomersCtx()

@@ -1,5 +1,9 @@
 'use client'
 
+import { LucidePencil } from 'lucide-react'
+import Link from 'next/link'
+import { Fragment } from 'react'
+
 import { EmptyTable } from '@/components/empty-table'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -8,9 +12,7 @@ import { Separator } from '@/components/ui/separator'
 import { useCustomersCtx } from '@/contexts/customers-context'
 import { usePagination } from '@/hooks/use-pagination'
 import { fetchCustomersQuery } from '@/queries/tanstack/customers/fetch-customers'
-import { LucidePencil } from 'lucide-react'
-import Link from 'next/link'
-import { Fragment } from 'react'
+
 import { ResponsiveCustomersTableSkeleton } from './responsive-customers-table-skeleton'
 
 export const ResponsiveCustomersTableCard = () => {

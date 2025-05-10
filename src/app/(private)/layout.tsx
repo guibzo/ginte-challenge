@@ -1,7 +1,8 @@
+import '@/styles/global.css'
+
 import { ContentContainer } from '@/components/content-container'
 import { BottomMenu } from '@/components/navigation/bottom-menu'
 import { Sidebar } from '@/components/navigation/sidebar'
-import '@/styles/global.css'
 
 export default function Layout({
   children,

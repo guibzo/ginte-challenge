@@ -1,8 +1,10 @@
+import '@/styles/global.css'
+
+import type { Metadata } from 'next'
+
 import { segoe_ui } from '@/../public/fonts/fonts'
 import { Providers } from '@/components/providers'
 import { cn } from '@/lib/cn'
-import '@/styles/global.css'
-import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: {

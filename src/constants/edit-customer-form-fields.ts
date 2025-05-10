@@ -1,9 +1,9 @@
 import {
+  type LucideIcon,
   LucideMail,
   LucideMapPin,
   LucidePhone,
   LucideUser2,
-  type LucideIcon,
 } from 'lucide-react'
 
 export type EditCustomerFormField = {

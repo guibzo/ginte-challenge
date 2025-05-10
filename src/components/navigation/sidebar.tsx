@@ -1,10 +1,12 @@
 'use client'
 
+import { LucideLogOut } from 'lucide-react'
+import { usePathname } from 'next/navigation'
+
 import { Logo } from '@/components/logo'
 import { Button } from '@/components/ui/button'
 import { navigationItems } from '@/constants/navigation-items'
-import { LucideLogOut } from 'lucide-react'
-import { usePathname } from 'next/navigation'
+
 import { MenuLink } from './menu-link'
 
 export const Sidebar = () => {

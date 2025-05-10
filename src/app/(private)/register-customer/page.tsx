@@ -1,6 +1,8 @@
-import { Title } from '@/components/title'
 import { LucidePlus } from 'lucide-react'
 import type { Metadata } from 'next'
+
+import { Title } from '@/components/title'
+
 import { RegisterCustomerForm } from './(components)/form'
 
 export const metadata: Metadata = {

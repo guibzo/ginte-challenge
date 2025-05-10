@@ -1,12 +1,13 @@
 'use client'
 
-import { Title } from '@/components/title'
-import { Button } from '@/components/ui/button'
-import { getCustomerByIdQuery } from '@/queries/tanstack/customers/get-customer-by-id'
 import { LucideCircleChevronLeft } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
+
+import { Title } from '@/components/title'
+import { Button } from '@/components/ui/button'
+import { getCustomerByIdQuery } from '@/queries/tanstack/customers/get-customer-by-id'
 
 export const EditCustomerTitle = ({
   editingCustomerId,

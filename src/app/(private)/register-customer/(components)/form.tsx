@@ -1,5 +1,13 @@
 'use client'
 
+import { zodResolver } from '@hookform/resolvers/zod'
+import { LucideChevronLeft, LucidePlus } from 'lucide-react'
+import Link from 'next/link'
+import { startTransition, useActionState, useEffect, useRef } from 'react'
+import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
+import { useHookFormMask } from 'use-mask-input'
+
 import { doRegisterCustomer } from '@/actions/customers/do-register-customer'
 import { FormError } from '@/components/form-error'
 import { Button } from '@/components/ui/button'
@@ -11,15 +19,9 @@ import { registerCustomerFormFields } from '@/constants/register-customer-form-f
 import { cn } from '@/lib/cn'
 import { queryClient } from '@/lib/query-client'
 import { hasFieldError } from '@/utills/has-field-error'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { LucideChevronLeft, LucidePlus } from 'lucide-react'
-import Link from 'next/link'
-import { startTransition, useActionState, useEffect, useRef } from 'react'
-import { useForm } from 'react-hook-form'
-import { toast } from 'sonner'
-import { useHookFormMask } from 'use-mask-input'
+
 import { RegisterCustomerFormCalendar } from './form-calendar'
-import { registerCustomerSchema, type RegisterCustomerSchema } from './schemas'
+import { type RegisterCustomerSchema,registerCustomerSchema } from './schemas'
 
 export const RegisterCustomerForm = () => {
   const [state, formAction, isSubmitting] = useActionState(doRegisterCustomer, {

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+
 import { EditCustomerForm } from './(components)/form'
 import { EditCustomerTitle } from './(components)/title'
 

@@ -1,10 +1,11 @@
 'use client'
 
+import { LucideChevronLeft, LucideChevronRight } from 'lucide-react'
+
 import { Button } from '@/components/ui/button'
 import { CardFooter } from '@/components/ui/card'
 import { useCustomersCtx } from '@/contexts/customers-context'
 import { usePagination } from '@/hooks/use-pagination'
-import { LucideChevronLeft, LucideChevronRight } from 'lucide-react'
 
 export const CardFooterComponent = () => {
   const { checkedItems, customersCount } = useCustomersCtx()

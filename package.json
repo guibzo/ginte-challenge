@@ -53,12 +53,12 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
-    "@next/eslint-plugin-next": "^15.3.2",
     "@types/lodash.debounce": "^4.0.9",
     "@types/node": "^20",
     "@types/react": "19.0.2",
     "@types/react-dom": "19.0.2",
     "eslint": "^9.10.0",
+    "eslint-config-next": "^15.3.2",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "postcss": "^8",
     "prettier": "^3.3.3",

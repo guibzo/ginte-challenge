@@ -102,9 +102,6 @@ importers:
         specifier: ^3.24.2
         version: 3.24.2
     devDependencies:
-      '@next/eslint-plugin-next':
-        specifier: ^15.3.2
-        version: 15.3.2
       '@types/lodash.debounce':
         specifier: ^4.0.9
         version: 4.0.9
